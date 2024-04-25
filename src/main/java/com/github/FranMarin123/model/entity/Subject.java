@@ -1,22 +1,29 @@
 package com.github.FranMarin123.model.entity;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 public class Subject {
     private int idSubject;
     private String name;
     private int hours;
     private Teacher teacher;
+    private Set<Activity> activities;
+    private Set<Student> students;
 
-    public Subject(int idSubject, String name, int hours, Teacher teacher) {
+    public Subject(int idSubject, String name, int hours, Teacher teacher, Set<Activity> activities,Set<Student> students) {
         this.idSubject = idSubject;
         this.name = name;
         this.hours = hours;
         this.teacher = teacher;
+        this.activities = activities;
+        this.students = students;
     }
 
     public Subject() {
-        this(-1,"",-1,new Teacher());
+        this(-1, "", -1, new Teacher(), new HashSet<Activity>(),new HashSet<Student>());
     }
 
     public int getIdSubject() {
@@ -49,6 +56,22 @@ public class Subject {
 
     public void setTeacher(Teacher teacher) {
         this.teacher = teacher;
+    }
+
+    public Set<Activity> getActivities() {
+        return activities;
+    }
+
+    public void setActivities(Set<Activity> activities) {
+        this.activities = activities;
+    }
+
+    public Set<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(Set<Student> students) {
+        this.students = students;
     }
 
     @Override

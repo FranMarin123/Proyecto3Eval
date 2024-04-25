@@ -12,18 +12,22 @@ public class Student {
     private String mail;
     private String pass;
     private File photo;
+    private Inscription inscription;
+    private Subject subject;
 
-    public Student(int idUser, String dni, String name, String mail, String pass, String photo) {
+    public Student(int idUser, String dni, String name, String mail, String pass, String photo,Inscription inscription, Subject subject) {
         this.idUser = idUser;
         this.dni = dni;
         this.name = name;
         this.mail = mail;
         setPass(pass);
         setPhoto(photo);
+        this.inscription=inscription;
+        this.subject=subject;
     }
 
     public Student() {
-        this(-1, "", "", "", "", /*Ruta imagen por defecto*/"");
+        this(-1, "", "", "", "", /*Ruta imagen por defecto*/"",new Inscription(),new Subject());
     }
 
     public int getIdUser() {
@@ -86,6 +90,26 @@ public class Student {
 
     public void setPhoto(String photoURL) {
         this.photo = new File(photoURL);
+    }
+
+    public void setPhoto(File photo) {
+        this.photo = photo;
+    }
+
+    public Inscription getInscription() {
+        return inscription;
+    }
+
+    public void setInscription(Inscription inscription) {
+        this.inscription = inscription;
+    }
+
+    public Subject getSubject() {
+        return subject;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
     }
 
     @Override

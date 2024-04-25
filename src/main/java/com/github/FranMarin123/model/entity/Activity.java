@@ -10,18 +10,20 @@ public class Activity {
     private File mediaFile;
     private int percent;
     private Subject subject;
+    private Inscription inscription;
 
-    public Activity(int idActivity, String name, String description, String mediaFile, int percent, Subject subject) {
+    public Activity(int idActivity, String name, String description, String mediaFile, int percent, Subject subject, Inscription inscription) {
         this.idActivity = idActivity;
         this.name = name;
         this.description = description;
         setMediaFile(mediaFile);
         this.percent = percent;
         this.subject = subject;
+        this.inscription = inscription;
     }
 
     public Activity() {
-        this(-1,"","","",-1,new Subject());
+        this(-1, "", "", "", -1, new Subject(), new Inscription());
     }
 
     public int getIdActivity() {
@@ -53,7 +55,7 @@ public class Activity {
     }
 
     public void setMediaFile(String mediaFileURL) {
-        this.mediaFile = new File(mediaFileURL);;
+        this.mediaFile = new File(mediaFileURL);
     }
 
     public int getPercent() {
@@ -70,6 +72,14 @@ public class Activity {
 
     public void setSubject(Subject subject) {
         this.subject = subject;
+    }
+
+    public Inscription getInscription() {
+        return inscription;
+    }
+
+    public void setInscription(Inscription inscription) {
+        this.inscription = inscription;
     }
 
     @Override
