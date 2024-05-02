@@ -7,7 +7,8 @@ import javax.xml.bind.Unmarshaller;
 import java.io.File;
 
 public class XMLManager {
-    public static <T> boolean writeXLM(T c, String filename) {
+
+    public static <T> boolean writeXML(T c, String filename) {
         boolean result = false;
 
         JAXBContext context;
