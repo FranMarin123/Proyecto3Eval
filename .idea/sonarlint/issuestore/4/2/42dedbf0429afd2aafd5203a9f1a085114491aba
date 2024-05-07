@@ -1,0 +1,8 @@
+
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(´½èıÿÿÿÿ
+?
+java:S1128")Remove this unused import 'java.io.File'.(†Ğ¥Å
+N
+java:S1128"8Remove this unused import 'java.security.MessageDigest'.(Œğ²»
+^
+java:S1128"CRemove this unused import 'java.security.NoSuchAlgorithmException'.(ŒòÍ¾şÿÿÿÿ

@@ -7,13 +7,14 @@ import com.github.FranMarin123.model.entity.Teacher;
 
 public class InsertTest {
     public static void main(String[] args) {
-        /*
-        StudentDAO test=new StudentDAO();
-        Student student=new Student("232342d","Juanse","juanse@gmail.com","1234","C://juan.jpg",null,null);
-        System.out.println(test.save(student));
-        */
-        TeacherDAO test=new TeacherDAO();
-        Teacher teacher=new Teacher("232342d","Juanse","juanse@gmail.com","1234","C://juan.jpg");
-        System.out.println(test.save(teacher));
+
+        StudentDAO testStudent=new StudentDAO();
+        Student student=new Student("232342d","Juanse","juanse123@gmail.com","1234","C://juan.jpg",null,null);
+        System.out.println(testStudent.save(student));
+
+        TeacherDAO testTeacher=new TeacherDAO();
+        Teacher teacher=new Teacher("Juanse","232342d","juanse@gmail.com","1234","C://juan.jpg");
+        System.out.println(testTeacher.save(teacher));
+
     }
 }

@@ -1,0 +1,10 @@
+
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(Ö¡¥úÿÿÿÿ
+]
+java:S2095"HUse try-with-resources or close this "TeacherDAO" in a "finally" clause.(¥†Ù	
+Q	java:S125"<This block of commented-out lines of code should be removed.(Ï£ë±
+E	java:S106"+Replace this use of System.out by a logger.(şƒ¦’üÿÿÿÿ
+_
+java:S1128"IRemove this unused import 'com.github.FranMarin123.model.dao.StudentDAO'.(òºçê
+d
+java:S1128"IRemove this unused import 'com.github.FranMarin123.model.entity.Student'.(ìÅ¸»úÿÿÿÿ
