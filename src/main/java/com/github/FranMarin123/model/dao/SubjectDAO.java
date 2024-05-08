@@ -2,7 +2,6 @@ package com.github.FranMarin123.model.dao;
 
 import com.github.FranMarin123.model.connection.ConnectionMariaDB;
 import com.github.FranMarin123.model.entity.Subject;
-import com.github.FranMarin123.model.enums.UserField;
 
 import java.io.IOException;
 import java.sql.PreparedStatement;
@@ -12,8 +11,8 @@ import java.sql.Statement;
 
 public class SubjectDAO implements DAO<Subject, String, String> {
     private final static String INSERT = "INSERT INTO subject (name,hours,id_teacher) VALUES (?,?,?";
-    private final static String UPDATE = "UPDATE subject SET hours=? WHERE id_subject=?";
-    private final static String FINDBYX = "SELECT s.id_subject,s.name,s.hours,s.id_teacher FROM subject AS s WHERE s.name=?";
+    private final static String UPDATE = "UPDATE subject SET hours=? WHERE id=?";
+    private final static String FINDBYX = "SELECT s.id,s.name,s.hours,s.id_teacher FROM subject AS s WHERE s.name=?";
     private final static String DELETE = "DELETE FROM subject WHERE name=?";
 
     @Override
@@ -31,16 +30,16 @@ public class SubjectDAO implements DAO<Subject, String, String> {
                     pst.executeUpdate();
                     ResultSet rs=pst.getGeneratedKeys();
                     if (rs.first()){
-                        objectToSave.setIdSubject(rs.getInt(1));
+                        objectToSave.setId(rs.getInt(1));
                     }
                 }catch (SQLException e){
                     result=null;
                 }
             }else {
                 if (!(subjectToFind.getHours()==objectToSave.getHours())){
-                    try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(UPDATE.replaceAll("REPLACE", UserField.NAME.getDbField()))) {
+                    try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(UPDATE)) {
                         pst.setInt(1, objectToSave.getHours());
-                        pst.setInt(2, subjectToFind.getIdSubject());
+                        pst.setInt(2, subjectToFind.getId());
                         pst.executeUpdate();
                         subjectToFind.setHours(objectToSave.getHours());
                     } catch (SQLException e) {
@@ -77,13 +76,13 @@ public class SubjectDAO implements DAO<Subject, String, String> {
                 ResultSet rs = pst.executeQuery();
                 result = new Subject();
                 if (rs.first()) {
-                    result.setIdSubject(rs.getInt("id_subject"));
+                    result.setId(rs.getInt("id_subject"));
                     result.setName(rs.getString("name"));
                     result.setHours(rs.getInt("hours"));
                     result.setStudents(null);
                     result.setTeacher(null);
                 }
-                if (result.getIdSubject()<1){
+                if (result.getId()<1){
                     result=null;
                 }
             } catch (SQLException e) {

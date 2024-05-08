@@ -1,7 +1,6 @@
 package com.github.FranMarin123.model.dao;
 
 import com.github.FranMarin123.model.connection.ConnectionMariaDB;
-import com.github.FranMarin123.model.entity.Student;
 import com.github.FranMarin123.model.entity.Teacher;
 import com.github.FranMarin123.model.enums.UserField;
 
@@ -13,8 +12,8 @@ import java.sql.Statement;
 
 public class TeacherDAO implements DAO<Teacher, String, UserField>{
     private final static String INSERT = "INSERT INTO teacher (dni,name,mail,pass,image) VALUES (?,?,?,?,?)";
-    private final static String UPDATE = "UPDATE teacher SET REPLACE=? WHERE id_teacher=?";
-    private final static String FINDBYX = "SELECT t.id_teacher,t.dni,t.name,t.mail,t.pass,t.image FROM teacher AS t WHERE t.REPLACE=?";
+    private final static String UPDATE = "UPDATE teacher SET REPLACE=? WHERE id=?";
+    private final static String FINDBYX = "SELECT t.id,t.dni,t.name,t.mail,t.pass,t.image FROM teacher AS t WHERE t.REPLACE=?";
     private final static String DELETE = "DELETE FROM teacher WHERE dni=?";
 
     @Override
@@ -34,7 +33,7 @@ public class TeacherDAO implements DAO<Teacher, String, UserField>{
                     pst.executeUpdate();
                     ResultSet rs = pst.getGeneratedKeys();
                     if (rs.first()) {
-                        objectToSave.setIdUser(rs.getInt(1));
+                        objectToSave.setId(rs.getInt(1));
                     }
                     result = objectToSave;
                 } catch (SQLException e) {
@@ -44,7 +43,7 @@ public class TeacherDAO implements DAO<Teacher, String, UserField>{
                 if (!teacherToFind.getName().equals(objectToSave.getName()) && objectToSave.getName() != null) {
                     try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(UPDATE.replaceAll("REPLACE", UserField.NAME.getDbField()))) {
                         pst.setString(1, objectToSave.getName());
-                        pst.setInt(2, teacherToFind.getIdUser());
+                        pst.setInt(2, teacherToFind.getId());
                         pst.executeUpdate();
                         teacherToFind.setName(objectToSave.getName());
                     } catch (SQLException e) {
@@ -54,7 +53,7 @@ public class TeacherDAO implements DAO<Teacher, String, UserField>{
                 if (!teacherToFind.getMail().equals(objectToSave.getMail()) && objectToSave.getMail() != null) {
                     try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(UPDATE.replaceAll("REPLACE", UserField.MAIL.getDbField()))) {
                         pst.setString(1, objectToSave.getMail());
-                        pst.setInt(2, teacherToFind.getIdUser());
+                        pst.setInt(2, teacherToFind.getId());
                         pst.executeUpdate();
                         teacherToFind.setMail(objectToSave.getMail());
                     } catch (SQLException e) {
@@ -64,7 +63,7 @@ public class TeacherDAO implements DAO<Teacher, String, UserField>{
                 if (!teacherToFind.getPass().equals(objectToSave.getPass()) && objectToSave.getPass() != null) {
                     try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(UPDATE.replaceAll("REPLACE", UserField.PASS.getDbField()))) {
                         pst.setString(1, objectToSave.getPass());
-                        pst.setInt(2, teacherToFind.getIdUser());
+                        pst.setInt(2, teacherToFind.getId());
                         pst.executeUpdate();
                         teacherToFind.setPass(objectToSave.getMail());
                     } catch (SQLException e) {
@@ -74,7 +73,7 @@ public class TeacherDAO implements DAO<Teacher, String, UserField>{
                 if (!teacherToFind.getPhoto().toString().equals(objectToSave.getPhoto().toString()) && objectToSave.getPhoto().toString() != null) {
                     try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(UPDATE.replaceAll("REPLACE", UserField.PHOTO.getDbField()))) {
                         pst.setString(1, objectToSave.getPhoto().toString());
-                        pst.setInt(2, teacherToFind.getIdUser());
+                        pst.setInt(2, teacherToFind.getId());
                         pst.executeUpdate();
                         teacherToFind.setPass(objectToSave.getMail());
                     } catch (SQLException e) {
@@ -110,14 +109,14 @@ public class TeacherDAO implements DAO<Teacher, String, UserField>{
                 ResultSet rs = pst.executeQuery();
                 result = new Teacher();
                 if (rs.first()) {
-                    result.setIdUser(rs.getInt("id_teacher"));
+                    result.setId(rs.getInt("id_teacher"));
                     result.setDni(rs.getString("dni"));
                     result.setName(rs.getString("name"));
                     result.setMail(rs.getString("mail"));
                     result.setPass(rs.getString("pass"));
                     result.setPhoto(rs.getString("image"));
                 }
-                if (result.getIdUser()<1){
+                if (result.getId()<1){
                     result=null;
                 }
             } catch (SQLException e) {

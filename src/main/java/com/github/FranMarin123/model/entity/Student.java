@@ -4,6 +4,7 @@ package com.github.FranMarin123.model.entity;
 import java.util.Objects;
 
 public class Student extends User{
+    private int id;
     private Inscription inscription;
     private Subject subject;
 
@@ -19,6 +20,14 @@ public class Student extends User{
 
     public Student() {
         this("", "", "", "", /*Ruta imagen por defecto*/"",null,null);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Inscription getInscription() {
@@ -42,18 +51,18 @@ public class Student extends User{
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
         Student student = (Student) object;
-        return idUser == student.idUser;
+        return id == student.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idUser);
+        return Objects.hash(id);
     }
 
     @Override
     public String toString() {
         return "Student{" +
-                "idUser=" + idUser +
+                "idUser=" + id +
                 ", dni='" + dni + '\'' +
                 ", name='" + name + '\'' +
                 ", mail='" + mail + '\'' +

@@ -1,12 +1,11 @@
 package com.github.FranMarin123.model.entity;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
 public class Subject {
-    private int idSubject;
+    private int id;
     private String name;
     private int hours;
     private Teacher teacher;
@@ -14,7 +13,7 @@ public class Subject {
     private Set<Student> students;
 
     public Subject(int idSubject, String name, int hours, Teacher teacher, Set<Activity> activities,Set<Student> students) {
-        this.idSubject = idSubject;
+        this.id = idSubject;
         this.name = name;
         this.hours = hours;
         this.teacher = teacher;
@@ -26,12 +25,12 @@ public class Subject {
         this(-1, "", -1, new Teacher(), new HashSet<Activity>(),new HashSet<Student>());
     }
 
-    public int getIdSubject() {
-        return idSubject;
+    public int getId() {
+        return id;
     }
 
-    public void setIdSubject(int idSubject) {
-        this.idSubject = idSubject;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -79,18 +78,18 @@ public class Subject {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
         Subject subject = (Subject) object;
-        return idSubject == subject.idSubject;
+        return id == subject.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idSubject);
+        return Objects.hash(id);
     }
 
     @Override
     public String toString() {
         return "Subject{" +
-                "idSubject=" + idSubject +
+                "idSubject=" + id +
                 ", name='" + name + '\'' +
                 ", hours=" + hours +
                 ", teacher=" + teacher +

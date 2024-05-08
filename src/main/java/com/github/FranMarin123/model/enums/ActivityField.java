@@ -1,16 +1,14 @@
 package com.github.FranMarin123.model.enums;
 
-public enum UserField {
-    ID("id"),
+public enum ActivityField {
     NAME("name"),
-    MAIL("mail"),
-    DNI("dni"),
-    PASS("pass"),
-    PHOTO("image");
+    DESCRIPTION("description"),
+    PERCENT("percent"),
+    MEDIA("media_file");
 
     private final String dbField;
 
-    UserField(String dbField) {
+    ActivityField(String dbField) {
         this.dbField = dbField;
     }
 

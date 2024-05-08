@@ -5,7 +5,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class User {
-    protected int idUser;
     protected String name;
     protected String dni;
     protected String mail;
@@ -22,14 +21,6 @@ public class User {
 
     public User(){
         this("", "", "", "", /*Ruta imagen por defecto*/"");
-    }
-
-    public int getIdUser() {
-        return idUser;
-    }
-
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
     }
 
     public String getDni() {

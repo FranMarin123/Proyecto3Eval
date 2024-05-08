@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.Objects;
 
 public class Activity {
-    private int idActivity;
+    private int id;
     private String name;
     private String description;
     private File mediaFile;
@@ -13,7 +13,7 @@ public class Activity {
     private Inscription inscription;
 
     public Activity(int idActivity, String name, String description, String mediaFile, int percent, Subject subject, Inscription inscription) {
-        this.idActivity = idActivity;
+        this.id = idActivity;
         this.name = name;
         this.description = description;
         setMediaFile(mediaFile);
@@ -26,12 +26,12 @@ public class Activity {
         this(-1, "", "", "", -1, new Subject(), new Inscription());
     }
 
-    public int getIdActivity() {
-        return idActivity;
+    public int getId() {
+        return id;
     }
 
-    public void setIdActivity(int idActivity) {
-        this.idActivity = idActivity;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -87,18 +87,18 @@ public class Activity {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
         Activity activity = (Activity) object;
-        return idActivity == activity.idActivity;
+        return id == activity.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idActivity);
+        return Objects.hash(id);
     }
 
     @Override
     public String toString() {
         return "Activity{" +
-                "idActivity=" + idActivity +
+                "idActivity=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", percent=" + percent +

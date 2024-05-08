@@ -12,8 +12,8 @@ import java.sql.Statement;
 
 public class StudentDAO implements DAO<Student, String, UserField> {
     private final static String INSERT = "INSERT INTO student (dni,name,mail,pass,image) VALUES (?,?,?,?,?)";
-    private final static String UPDATE = "UPDATE student SET REPLACE=? WHERE id_student=?";
-    private final static String FINDBYX = "SELECT s.id_student,s.dni,s.name,s.mail,s.pass,s.image FROM student AS s WHERE s.REPLACE=?";
+    private final static String UPDATE = "UPDATE student SET REPLACE=? WHERE id=?";
+    private final static String FINDBYX = "SELECT s.id,s.dni,s.name,s.mail,s.pass,s.image FROM student AS s WHERE s.REPLACE=?";
     private final static String DELETE = "DELETE FROM student WHERE dni=?";
 
     @Override
@@ -33,7 +33,7 @@ public class StudentDAO implements DAO<Student, String, UserField> {
                     pst.executeUpdate();
                     ResultSet rs = pst.getGeneratedKeys();
                     if (rs.first()) {
-                        objectToSave.setIdUser(rs.getInt(1));
+                        objectToSave.setId(rs.getInt(1));
                     }
                     result = objectToSave;
                 } catch (SQLException e) {
@@ -43,7 +43,7 @@ public class StudentDAO implements DAO<Student, String, UserField> {
                 if (!studentToFind.getName().equals(objectToSave.getName()) && objectToSave.getName() != null) {
                     try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(UPDATE.replaceAll("REPLACE", UserField.NAME.getDbField()))) {
                         pst.setString(1, objectToSave.getName());
-                        pst.setInt(2, studentToFind.getIdUser());
+                        pst.setInt(2, studentToFind.getId());
                         pst.executeUpdate();
                         studentToFind.setName(objectToSave.getName());
                     } catch (SQLException e) {
@@ -53,7 +53,7 @@ public class StudentDAO implements DAO<Student, String, UserField> {
                 if (!studentToFind.getMail().equals(objectToSave.getMail()) && objectToSave.getMail() != null) {
                     try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(UPDATE.replaceAll("REPLACE", UserField.MAIL.getDbField()))) {
                         pst.setString(1, objectToSave.getMail());
-                        pst.setInt(2, studentToFind.getIdUser());
+                        pst.setInt(2, studentToFind.getId());
                         pst.executeUpdate();
                         studentToFind.setMail(objectToSave.getMail());
                     } catch (SQLException e) {
@@ -63,7 +63,7 @@ public class StudentDAO implements DAO<Student, String, UserField> {
                 if (!studentToFind.getPass().equals(objectToSave.getPass()) && objectToSave.getPass() != null) {
                     try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(UPDATE.replaceAll("REPLACE", UserField.PASS.getDbField()))) {
                         pst.setString(1, objectToSave.getPass());
-                        pst.setInt(2, studentToFind.getIdUser());
+                        pst.setInt(2, studentToFind.getId());
                         pst.executeUpdate();
                         studentToFind.setPass(objectToSave.getMail());
                     } catch (SQLException e) {
@@ -73,7 +73,7 @@ public class StudentDAO implements DAO<Student, String, UserField> {
                 if (!studentToFind.getPhoto().toString().equals(objectToSave.getPhoto().toString()) && objectToSave.getPhoto().toString() != null) {
                     try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(UPDATE.replaceAll("REPLACE", UserField.PHOTO.getDbField()))) {
                         pst.setString(1, objectToSave.getPhoto().toString());
-                        pst.setInt(2, studentToFind.getIdUser());
+                        pst.setInt(2, studentToFind.getId());
                         pst.executeUpdate();
                         studentToFind.setPass(objectToSave.getMail());
                     } catch (SQLException e) {
@@ -109,7 +109,7 @@ public class StudentDAO implements DAO<Student, String, UserField> {
                 ResultSet rs = pst.executeQuery();
                 result = new Student();
                 if (rs.first()) {
-                    result.setIdUser(rs.getInt("id_student"));
+                    result.setId(rs.getInt("id_student"));
                     result.setDni(rs.getString("dni"));
                     result.setName(rs.getString("name"));
                     result.setMail(rs.getString("mail"));
@@ -118,7 +118,7 @@ public class StudentDAO implements DAO<Student, String, UserField> {
                     result.setSubject(null);
                     result.setInscription(null);
                 }
-                if (result.getIdUser()<1){
+                if (result.getId()<1){
                     result=null;
                 }
             } catch (SQLException e) {
