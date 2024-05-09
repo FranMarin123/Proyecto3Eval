@@ -1,8 +1,10 @@
 package com.github.FranMarin123.test;
 
 import com.github.FranMarin123.model.dao.StudentDAO;
+import com.github.FranMarin123.model.dao.SubjectDAO;
 import com.github.FranMarin123.model.dao.TeacherDAO;
 import com.github.FranMarin123.model.entity.Student;
+import com.github.FranMarin123.model.entity.Subject;
 import com.github.FranMarin123.model.entity.Teacher;
 import com.github.FranMarin123.model.enums.UserField;
 
@@ -13,8 +15,12 @@ public class FindTest {
         Student sToFind=sd.findByX("Juanse", UserField.NAME);
         System.out.println(sToFind);
         */
-        TeacherDAO td=new TeacherDAO();
+        /*TeacherDAO td=new TeacherDAO();
         Teacher tToFind=td.findByX("Juanse", UserField.NAME);
-        System.out.println(tToFind);
+        System.out.println(tToFind);*/
+
+        SubjectDAO sD=new SubjectDAO();
+        Subject subject=sD.findByX("Matematicas","name");
+        System.out.println(subject);
     }
 }

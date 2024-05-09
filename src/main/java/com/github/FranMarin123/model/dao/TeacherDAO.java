@@ -14,6 +14,7 @@ public class TeacherDAO implements DAO<Teacher, String, UserField>{
     private final static String INSERT = "INSERT INTO teacher (dni,name,mail,pass,image) VALUES (?,?,?,?,?)";
     private final static String UPDATE = "UPDATE teacher SET REPLACE=? WHERE id=?";
     private final static String FINDBYX = "SELECT t.id,t.dni,t.name,t.mail,t.pass,t.image FROM teacher AS t WHERE t.REPLACE=?";
+    private final static String FINDBYID = "SELECT t.id,t.dni,t.name,t.mail,t.pass,t.image FROM teacher AS t WHERE t.id=?";
     private final static String DELETE = "DELETE FROM teacher WHERE dni=?";
 
     @Override
@@ -108,8 +109,8 @@ public class TeacherDAO implements DAO<Teacher, String, UserField>{
                 pst.setString(1, key);
                 ResultSet rs = pst.executeQuery();
                 result = new Teacher();
-                if (rs.first()) {
-                    result.setId(rs.getInt("id_teacher"));
+                if (rs.next()) {
+                    result.setId(rs.getInt("id"));
                     result.setDni(rs.getString("dni"));
                     result.setName(rs.getString("name"));
                     result.setMail(rs.getString("mail"));
@@ -127,7 +128,38 @@ public class TeacherDAO implements DAO<Teacher, String, UserField>{
     }
 
     @Override
+    public Teacher findById(int key) {
+        Teacher result = null;
+        if (key>0) {
+            try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(FINDBYID)) {
+                pst.setInt(1, key);
+                ResultSet rs = pst.executeQuery();
+                result = new Teacher();
+                if (rs.next()) {
+                    result.setId(rs.getInt("id"));
+                    result.setDni(rs.getString("dni"));
+                    result.setName(rs.getString("name"));
+                    result.setMail(rs.getString("mail"));
+                    result.setPass(rs.getString("pass"));
+                    result.setPhoto(rs.getString("image"));
+                }
+                if (result.getId()<1){
+                    result=null;
+                }
+            } catch (SQLException e) {
+                result = null;
+            }
+        }
+        return result;
+    }
+
+
+    @Override
     public void close() throws IOException {
 
+    }
+
+    public static TeacherDAO build(){
+        return new TeacherDAO();
     }
 }

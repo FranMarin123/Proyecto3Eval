@@ -12,8 +12,7 @@ public class Subject {
     private Set<Activity> activities;
     private Set<Student> students;
 
-    public Subject(int idSubject, String name, int hours, Teacher teacher, Set<Activity> activities,Set<Student> students) {
-        this.id = idSubject;
+    public Subject(String name, int hours, Teacher teacher, Set<Activity> activities,Set<Student> students) {
         this.name = name;
         this.hours = hours;
         this.teacher = teacher;
@@ -22,7 +21,7 @@ public class Subject {
     }
 
     public Subject() {
-        this(-1, "", -1, new Teacher(), new HashSet<Activity>(),new HashSet<Student>());
+        this("", -1, new Teacher(), new HashSet<Activity>(),new HashSet<Student>());
     }
 
     public int getId() {

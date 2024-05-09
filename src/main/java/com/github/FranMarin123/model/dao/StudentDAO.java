@@ -129,6 +129,11 @@ public class StudentDAO implements DAO<Student, String, UserField> {
     }
 
     @Override
+    public Student findById(int key) {
+        return null;
+    }
+
+    @Override
     public void close() throws IOException {
 
     }

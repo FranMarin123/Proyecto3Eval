@@ -122,6 +122,11 @@ public class ActivityDAO implements DAO<Activity,String, ActivityField>{
     }
 
     @Override
+    public Activity findById(int key) {
+        return null;
+    }
+
+    @Override
     public void close() throws IOException {
 
     }
