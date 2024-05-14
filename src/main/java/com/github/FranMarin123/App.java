@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 
 import static com.github.FranMarin123.view.AppController.loadFXML;
@@ -30,7 +31,7 @@ public class App extends Application {
         currentController=(AppController) view.controller;
         currentController.onOpen(null);
         stage.setTitle("EducSoftware 1.0");
-        stage.getIcons().add(new Image("images\\logoWindow.png"));
+        stage.getIcons().add(new Image("src/main/resources/com/github/FranMarin123/images/logoWindow.png"));
         stage.setScene(scene);
         stage.show();
     }

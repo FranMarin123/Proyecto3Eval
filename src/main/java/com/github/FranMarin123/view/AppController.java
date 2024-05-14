@@ -6,6 +6,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
@@ -14,17 +17,30 @@ import java.util.ResourceBundle;
 
 public class AppController extends Controller implements Initializable {
     @FXML
-    private BorderPane borderPane;
+    private AnchorPane anchorPane;
+
+    @FXML
+    private ImageView image;
+
+    @FXML
+    private Button login;
+
+    @FXML
+    private Button register;
+
+    @FXML
+    private Button exit;
+
     private Controller centerController;
 
     @Override
     public void onOpen(Object input) throws IOException {
-        changeScene(Scenes.PRINCIPAL,null);
+        //changeScene(Scenes.PRINCIPAL,null);
     }
 
     public void changeScene(Scenes scene,Object data) throws IOException {
         View view = loadFXML(scene);
-        borderPane.setCenter(view.scene);
+        //anchorPane.;
         this.centerController = view.controller;
         this.centerController.onOpen(data);
     }
