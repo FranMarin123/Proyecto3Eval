@@ -18,6 +18,7 @@ public class StudentDAO implements DAO<Student, String, UserField> {
     private final static String FINDBYX = "SELECT s.id,s.dni,s.name,s.mail,s.pass,s.image FROM student AS s WHERE s.REPLACE=?";
     private final static String FINDBYSUBJECT = "SELECT s.id_student FROM STUDENTSUBJECT AS s WHERE s.id_subject=?";
     private final static String DELETE = "DELETE FROM student WHERE dni=?";
+    private final static String DELETESUBJECTSFORSTUDENT = "DELETE FROM STUDENTSUBJECT WHERE id_student=?";
 
     @Override
     public Student save(Student objectToSave) {
@@ -95,9 +96,25 @@ public class StudentDAO implements DAO<Student, String, UserField> {
         if (objectToDelete != null && objectToDelete.getDni() != null) {
             try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(DELETE)) {
                 result = findByX(objectToDelete.getDni(), UserField.DNI);
+                deleteSubjectStudent(result);
                 pst.setString(1, objectToDelete.getDni());
                 pst.executeUpdate();
             } catch (SQLException e) {
+                result=null;
+            }
+        }
+        return result;
+    }
+
+    public boolean deleteSubjectStudent(Student studentToDelete) {
+        boolean result = false;
+        if (studentToDelete != null && studentToDelete.getId() > 0) {
+            try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(DELETESUBJECTSFORSTUDENT)) {
+                pst.setInt(1, studentToDelete.getId());
+                pst.executeUpdate();
+                result=true;
+            } catch (SQLException e) {
+                result=false;
             }
         }
         return result;
@@ -106,7 +123,7 @@ public class StudentDAO implements DAO<Student, String, UserField> {
     @Override
     public Student findByX(String key, UserField field) {
         Student result = null;
-        if (key!=null && !key.isEmpty()) {
+        if (key != null && !key.isEmpty()) {
             try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(FINDBYX.replaceAll("REPLACE", field.getDbField()))) {
                 pst.setString(1, key);
                 ResultSet rs = pst.executeQuery();
@@ -121,8 +138,8 @@ public class StudentDAO implements DAO<Student, String, UserField> {
                     result.setSubjects(SubjectDAO.build().findByStudent(result));
                     result.setInscription(null);
                 }
-                if (result.getId()<1){
-                    result=null;
+                if (result.getId() < 1) {
+                    result = null;
                 }
             } catch (SQLException e) {
                 result = null;
@@ -131,13 +148,13 @@ public class StudentDAO implements DAO<Student, String, UserField> {
         return result;
     }
 
-    public HashMap<String,Student> findBySubject(Subject subject) {
-        HashMap<String,Student> result = new HashMap<>();
-        if (subject!=null && subject.getId()>0) {
+    public HashMap<String, Student> findBySubject(Subject subject) {
+        HashMap<String, Student> result = new HashMap<>();
+        if (subject != null && subject.getId() > 0) {
             try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(FINDBYSUBJECT)) {
                 pst.setInt(1, subject.getId());
                 ResultSet rs = pst.executeQuery();
-                while (rs.next()){
+                while (rs.next()) {
                     Student tmpStudent = new Student();
                     tmpStudent.setId(rs.getInt("id"));
                     tmpStudent.setDni(rs.getString("dni"));
@@ -166,7 +183,7 @@ public class StudentDAO implements DAO<Student, String, UserField> {
 
     }
 
-    public static StudentDAO build(){
+    public static StudentDAO build() {
         return new StudentDAO();
     }
 }
