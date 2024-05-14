@@ -1,6 +1,7 @@
 package com.github.FranMarin123.model.dao;
 
 import com.github.FranMarin123.model.connection.ConnectionMariaDB;
+import com.github.FranMarin123.model.entity.Subject;
 import com.github.FranMarin123.model.entity.Teacher;
 import com.github.FranMarin123.model.enums.UserField;
 
@@ -9,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashSet;
+import java.util.Set;
 
 public class TeacherDAO implements DAO<Teacher, String, UserField>{
     private final static String INSERT = "INSERT INTO teacher (dni,name,mail,pass,image) VALUES (?,?,?,?,?)";
@@ -116,6 +119,7 @@ public class TeacherDAO implements DAO<Teacher, String, UserField>{
                     result.setMail(rs.getString("mail"));
                     result.setPass(rs.getString("pass"));
                     result.setPhoto(rs.getString("image"));
+                    result.setSubjects(SubjectDAO.build().findByTeacher(result));
                 }
                 if (result.getId()<1){
                     result=null;

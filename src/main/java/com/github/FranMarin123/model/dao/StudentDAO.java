@@ -112,13 +112,13 @@ public class StudentDAO implements DAO<Student, String, UserField> {
                 ResultSet rs = pst.executeQuery();
                 result = new Student();
                 if (rs.first()) {
-                    result.setId(rs.getInt("id_student"));
+                    result.setId(rs.getInt("id"));
                     result.setDni(rs.getString("dni"));
                     result.setName(rs.getString("name"));
                     result.setMail(rs.getString("mail"));
                     result.setPass(rs.getString("pass"));
                     result.setPhoto(rs.getString("image"));
-                    result.setSubject(null);
+                    result.setSubjects(SubjectDAO.build().findByStudent(result));
                     result.setInscription(null);
                 }
                 if (result.getId()<1){
@@ -139,13 +139,13 @@ public class StudentDAO implements DAO<Student, String, UserField> {
                 ResultSet rs = pst.executeQuery();
                 while (rs.next()){
                     Student tmpStudent = new Student();
-                    tmpStudent.setId(rs.getInt("id_student"));
+                    tmpStudent.setId(rs.getInt("id"));
                     tmpStudent.setDni(rs.getString("dni"));
                     tmpStudent.setName(rs.getString("name"));
                     tmpStudent.setMail(rs.getString("mail"));
                     tmpStudent.setPass(rs.getString("pass"));
                     tmpStudent.setPhoto(rs.getString("image"));
-                    tmpStudent.setSubject(subject);
+                    tmpStudent.addSubject(subject);
                     tmpStudent.setInscription(null);
                     result.put(tmpStudent.getDni(), tmpStudent);
                 }

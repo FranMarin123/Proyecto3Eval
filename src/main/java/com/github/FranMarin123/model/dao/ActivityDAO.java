@@ -14,10 +14,11 @@ import java.util.HashMap;
 
 
 public class ActivityDAO implements DAO<Activity,String, ActivityField>{
-    private final static String INSERT = "INSERT INTO activity (description,name,percent,media_file) VALUES (?,?,?,?)";
+    private final static String INSERT = "INSERT INTO activity (description,name,percent,media_file,id_subject) VALUES (?,?,?,?,?)";
     private final static String UPDATE = "UPDATE activity SET REPLACE=? WHERE id=?";
-    private final static String FINDBYX = "SELECT a.id,a.dni,a.name,a.mail,a.pass,a.image FROM activity AS a WHERE a.REPLACE=?";
-    private final static String FINDBYID = "SELECT a.id,a.dni,a.name,a.mail,a.pass,a.image FROM activity AS a WHERE a.id=?";
+    private final static String FINDBYX = "SELECT a.id,a.dni,a.name,a.mail,a.pass,a.image,a.id_subject FROM activity AS a WHERE a.REPLACE=?";
+    private final static String FINDBYID = "SELECT a.id,a.dni,a.name,a.mail,a.pass,a.image,a.id_subject FROM activity AS a WHERE a.id=?";
+    private final static String FINDBYSUBJECT = "SELECT a.id,a.dni,a.name,a.mail,a.pass,a.image FROM activity AS a WHERE a.id=?";
     private final static String DELETE = "DELETE FROM activity WHERE name=?";
 
 
@@ -34,7 +35,9 @@ public class ActivityDAO implements DAO<Activity,String, ActivityField>{
                     pst.setString(2,objectToSave.getName());
                     pst.setInt(3,objectToSave.getPercent());
                     pst.setString(4,objectToSave.getMediaFile().toString());
-                    //Añadir subject
+                    if (objectToSave.getSubject()!=null && objectToSave.getSubject().getId()>0) {
+                        pst.setInt(5, objectToSave.getSubject().getId());
+                    }
                     //Añadir inscription
                     pst.executeUpdate();
                     ResultSet rs=pst.getGeneratedKeys();

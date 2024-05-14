@@ -1,9 +1,21 @@
 package com.github.FranMarin123.model.entity;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 public class Teacher extends User{
     private int id;
+    private Set<Subject> subjects;
+
+    public Teacher(String name, String dni, String mail, String pass, String photo, HashSet<Subject> subjects) {
+        this.name = name;
+        this.dni = dni;
+        this.mail = mail;
+        super.setPass(pass);
+        super.setPhoto(photo);
+        this.subjects=subjects;
+    }
 
     public Teacher(String name, String dni, String mail, String pass, String photo) {
         this.name = name;
@@ -12,6 +24,7 @@ public class Teacher extends User{
         super.setPass(pass);
         super.setPhoto(photo);
     }
+
 
     public Teacher(){
         super();
@@ -23,6 +36,14 @@ public class Teacher extends User{
 
     public void setId(int idUser) {
         this.id = idUser;
+    }
+
+    public Set<Subject> getSubjects() {
+        return subjects;
+    }
+
+    public void setSubjects(Set<Subject> subjects) {
+        this.subjects = subjects;
     }
 
     @Override
@@ -41,10 +62,13 @@ public class Teacher extends User{
     @Override
     public String toString() {
         return "Teacher{" +
-                "idTeacher=" + id +
+                "id=" + id +
+                ", subjects=" + subjects +
                 ", name='" + name + '\'' +
                 ", dni='" + dni + '\'' +
                 ", mail='" + mail + '\'' +
+                ", pass='" + pass + '\'' +
+                ", photo=" + photo.toString() +
                 '}';
     }
 }

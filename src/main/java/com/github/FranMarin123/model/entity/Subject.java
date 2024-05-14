@@ -20,7 +20,7 @@ public class Subject {
     }
 
     public Subject() {
-        this("", -1, new Teacher(), new HashMap<>(),new HashMap<>());
+        this("", -1, new Teacher(), null,null);
     }
 
     public int getId() {
