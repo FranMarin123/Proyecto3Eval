@@ -7,5 +7,7 @@ module com.github.FranMarin123 {
     opens com.github.FranMarin123 to javafx.fxml;
     opens com.github.FranMarin123.model.connection to java.xml.bind;
     exports com.github.FranMarin123;
+    exports com.github.FranMarin123.view;
+    opens com.github.FranMarin123.view to javafx.fxml;
     //opens com.github.FranMarin123.view to javafx.fxml;
 }
