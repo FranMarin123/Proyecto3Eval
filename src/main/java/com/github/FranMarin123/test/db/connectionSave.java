@@ -1,4 +1,4 @@
-package com.github.FranMarin123.test;
+package com.github.FranMarin123.test.db;
 
 import com.github.FranMarin123.model.connection.ConnectionProperties;
 import com.github.FranMarin123.utils.XMLManager;

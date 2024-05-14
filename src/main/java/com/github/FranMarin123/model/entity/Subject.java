@@ -1,18 +1,17 @@
 package com.github.FranMarin123.model.entity;
 
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.Objects;
-import java.util.Set;
 
 public class Subject {
     private int id;
     private String name;
     private int hours;
     private Teacher teacher;
-    private Set<Activity> activities;
-    private Set<Student> students;
+    private HashMap<String,Activity> activities;
+    private HashMap<String,Student> students;
 
-    public Subject(String name, int hours, Teacher teacher, Set<Activity> activities,Set<Student> students) {
+    public Subject(String name, int hours, Teacher teacher, HashMap<String,Activity> activities,HashMap<String,Student> students) {
         this.name = name;
         this.hours = hours;
         this.teacher = teacher;
@@ -21,7 +20,7 @@ public class Subject {
     }
 
     public Subject() {
-        this("", -1, new Teacher(), new HashSet<Activity>(),new HashSet<Student>());
+        this("", -1, new Teacher(), new HashMap<>(),new HashMap<>());
     }
 
     public int getId() {
@@ -56,19 +55,19 @@ public class Subject {
         this.teacher = teacher;
     }
 
-    public Set<Activity> getActivities() {
+    public HashMap<String,Activity> getActivities() {
         return activities;
     }
 
-    public void setActivities(Set<Activity> activities) {
+    public void setActivities(HashMap<String,Activity> activities) {
         this.activities = activities;
     }
 
-    public Set<Student> getStudents() {
+    public HashMap<String,Student> getStudents() {
         return students;
     }
 
-    public void setStudents(Set<Student> students) {
+    public void setStudents(HashMap<String,Student> students) {
         this.students = students;
     }
 
@@ -88,10 +87,62 @@ public class Subject {
     @Override
     public String toString() {
         return "Subject{" +
-                "idSubject=" + id +
+                "id=" + id +
                 ", name='" + name + '\'' +
                 ", hours=" + hours +
                 ", teacher=" + teacher +
+                ", activities=" + activities +
+                ", students=" + students +
                 '}';
+    }
+
+    public boolean addActivity(Activity activityToAdd){
+        boolean result=false;
+        if(activityToAdd!=null && activityToAdd.getName()!=null && !activityToAdd.getName().isEmpty()) {
+            if (activities == null) {
+                activities = new HashMap<>();
+            }
+            if (activities.containsKey(activityToAdd.getName())) {
+                activities.put(activityToAdd.getName(), activityToAdd);
+                result = true;
+            }
+        }
+        return result;
+    }
+
+    public boolean addStudent(Student studentToAdd){
+        boolean result=false;
+        if(studentToAdd!=null && studentToAdd.getDni()!=null && !studentToAdd.getDni().isEmpty()) {
+            if (students == null) {
+                students = new HashMap<>();
+            }
+            if (students.containsKey(studentToAdd.getDni())) {
+                students.put(studentToAdd.getDni(), studentToAdd);
+                result = true;
+            }
+        }
+        return result;
+    }
+
+    public boolean removeActivity(Activity actToRemove){
+        boolean result=false;
+        if (actToRemove!=null && actToRemove.getName()!=null && !actToRemove.getName().isEmpty()){
+            if (activities.containsKey(actToRemove.getName())){
+                activities.remove(actToRemove.getName());
+                result=true;
+            }
+        }
+        return result;
+    }
+
+    public boolean removeStudent(Student studentToRemove){
+        boolean result=false;
+        if (studentToRemove!=null && studentToRemove.getDni()!=null && !studentToRemove.getDni().isEmpty()){
+            if (students.containsKey(studentToRemove.getDni())){
+                students.remove(studentToRemove.getDni());
+                result=true;
+            }
+        }
+        return result;
     }
 }

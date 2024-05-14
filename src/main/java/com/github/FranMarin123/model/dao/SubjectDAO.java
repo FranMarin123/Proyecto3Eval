@@ -1,6 +1,8 @@
 package com.github.FranMarin123.model.dao;
 
 import com.github.FranMarin123.model.connection.ConnectionMariaDB;
+import com.github.FranMarin123.model.entity.Activity;
+import com.github.FranMarin123.model.entity.Student;
 import com.github.FranMarin123.model.entity.Subject;
 import com.github.FranMarin123.model.enums.UserField;
 
@@ -9,12 +11,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.List;
 
 public class SubjectDAO implements DAO<Subject, String, String> {
     private final static String INSERT = "INSERT INTO subject (name,hours,id_teacher) VALUES (?,?,?)";
+    private final static String INSERTSTUSUB = "INSERT INTO studentsubject (id_subject,id_student) VALUES (?,?)";
+    private final static String SELECTSTUSUB = "SELECT id_subject,id_student FROM studentsubject WHERE id_subject=? AND id_student=?";
     private final static String UPDATE = "UPDATE subject SET hours=? WHERE id=?";
     private final static String FINDBYX = "SELECT s.id,s.name,s.hours,s.id_teacher FROM subject AS s WHERE s.name=?";
     private final static String DELETE = "DELETE FROM subject WHERE name=?";
+    private final static String DELETEALLSTUDENTS = "DELETE FROM studentsubject WHERE id_subject=?";
+    private final static String DELETESTUSUB = "DELETE FROM studentsubject WHERE id_subject=? AND id_student=?";
 
     @Override
     public Subject save(Subject objectToSave) {
@@ -28,11 +36,17 @@ public class SubjectDAO implements DAO<Subject, String, String> {
                     pst.setString(1,objectToSave.getName());
                     pst.setInt(2,objectToSave.getHours());
                     pst.setInt(3,objectToSave.getTeacher().getId());
-                    //Añadir profesor
                     pst.executeUpdate();
                     ResultSet rs=pst.getGeneratedKeys();
                     if (rs.first()){
                         objectToSave.setId(rs.getInt(1));
+                    }
+                    if (objectToSave.getStudents()!=null){
+                        for (Student s:objectToSave.getStudents().values()){
+                            if (StudentDAO.build().findById(s.getId())!=null){
+                                saveStudentSubject(s,objectToSave);
+                            }
+                        }
                     }
                     result=objectToSave;
                 }catch (SQLException e){
@@ -55,12 +69,67 @@ public class SubjectDAO implements DAO<Subject, String, String> {
         return result;
     }
 
+    public boolean saveStudentSubject(Student student,Subject subject){
+        boolean result=false;
+        if (student!=null && subject!=null && student.getId()>0 && subject.getId()>0 && !proveStudentSubject(student.getId(), subject.getId())){
+            try (PreparedStatement pst= ConnectionMariaDB.getConnection().prepareStatement(INSERTSTUSUB, Statement.RETURN_GENERATED_KEYS)){
+                pst.setInt(1,student.getId());
+                pst.setInt(2,subject.getId());
+                pst.executeUpdate();
+                result=true;
+            }catch (SQLException e){
+                result=false;
+            }
+
+        }
+        return result;
+    }
+
+    public boolean proveStudentSubject(int idStudent, int idSubject){
+        boolean result=false;
+        if (idStudent>0 && idSubject>0) {
+            try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(SELECTSTUSUB)) {
+                pst.setInt(1, idSubject);
+                pst.setInt(2, idStudent);
+                ResultSet rs = pst.executeQuery();
+                if (rs.first()) {
+                    if (rs.getInt("id_subject")>0 || rs.getInt("id_student")>0){
+                        result=true;
+                    }
+                }
+            } catch (SQLException e) {
+                result = false;
+            }
+        }
+        return result;
+    }
+
+    public boolean removeStudentFromSubject(Student student,Subject subject){
+        boolean result = false;
+        if (student!=null && subject!=null && student.getId()>0 && subject.getId()>0 && proveStudentSubject(student.getId(), subject.getId())) {
+            try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(DELETESTUSUB)) {
+                pst.setInt(1, subject.getId());
+                pst.setInt(2, student.getId());
+                pst.executeUpdate();
+            } catch (SQLException e) {
+                result=false;
+            }
+        }
+        return result;
+    }
+
     @Override
     public Subject delete(Subject objectToDelete) {
         Subject result = null;
         if (objectToDelete != null && (objectToDelete.getName() != null || objectToDelete.getName().isEmpty())) {
-            try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(DELETE)) {
+            try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(DELETEALLSTUDENTS)) {
                 result = findByX(objectToDelete.getName(), "name");
+                pst.setInt(1, objectToDelete.getId());
+                pst.executeUpdate();
+            } catch (SQLException e) {
+                result=null;
+            }
+            try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(DELETE)) {
                 pst.setString(1, objectToDelete.getName());
                 pst.executeUpdate();
             } catch (SQLException e) {
@@ -90,7 +159,6 @@ public class SubjectDAO implements DAO<Subject, String, String> {
                 }
             } catch (SQLException e) {
                 result = null;
-                System.out.println("ERROR");
             }
         }
         return result;
@@ -105,4 +173,24 @@ public class SubjectDAO implements DAO<Subject, String, String> {
     public void close() throws IOException {
 
     }
+
+    public static SubjectDAO build(){
+        return new SubjectDAO();
+    }
+}
+
+class SubjectLazy extends Subject{
+    public HashMap<String, Student> getStudents(){
+        if (super.getStudents()==null){
+            super.setStudents(StudentDAO.build().findBySubject(this));
+        }
+        return super.getStudents();
+    }
+
+    /*public HashMap<String, Activity> getActivities(){
+        if (super.getActivities()==null){
+            super.setActivities(ActivityDAO.build().findBySubject(this));
+        }
+        return super.getActivities();
+    }*/
 }

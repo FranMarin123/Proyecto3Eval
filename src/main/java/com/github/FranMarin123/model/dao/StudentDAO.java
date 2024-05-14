@@ -2,6 +2,7 @@ package com.github.FranMarin123.model.dao;
 
 import com.github.FranMarin123.model.connection.ConnectionMariaDB;
 import com.github.FranMarin123.model.entity.Student;
+import com.github.FranMarin123.model.entity.Subject;
 import com.github.FranMarin123.model.enums.UserField;
 
 import java.io.IOException;
@@ -9,11 +10,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
 
 public class StudentDAO implements DAO<Student, String, UserField> {
     private final static String INSERT = "INSERT INTO student (dni,name,mail,pass,image) VALUES (?,?,?,?,?)";
     private final static String UPDATE = "UPDATE student SET REPLACE=? WHERE id=?";
     private final static String FINDBYX = "SELECT s.id,s.dni,s.name,s.mail,s.pass,s.image FROM student AS s WHERE s.REPLACE=?";
+    private final static String FINDBYSUBJECT = "SELECT s.id_student FROM STUDENTSUBJECT AS s WHERE s.id_subject=?";
     private final static String DELETE = "DELETE FROM student WHERE dni=?";
 
     @Override
@@ -128,6 +131,31 @@ public class StudentDAO implements DAO<Student, String, UserField> {
         return result;
     }
 
+    public HashMap<String,Student> findBySubject(Subject subject) {
+        HashMap<String,Student> result = new HashMap<>();
+        if (subject!=null && subject.getId()>0) {
+            try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(FINDBYSUBJECT)) {
+                pst.setInt(1, subject.getId());
+                ResultSet rs = pst.executeQuery();
+                while (rs.next()){
+                    Student tmpStudent = new Student();
+                    tmpStudent.setId(rs.getInt("id_student"));
+                    tmpStudent.setDni(rs.getString("dni"));
+                    tmpStudent.setName(rs.getString("name"));
+                    tmpStudent.setMail(rs.getString("mail"));
+                    tmpStudent.setPass(rs.getString("pass"));
+                    tmpStudent.setPhoto(rs.getString("image"));
+                    tmpStudent.setSubject(subject);
+                    tmpStudent.setInscription(null);
+                    result.put(tmpStudent.getDni(), tmpStudent);
+                }
+            } catch (SQLException e) {
+                result = null;
+            }
+        }
+        return result;
+    }
+
     @Override
     public Student findById(int key) {
         return null;
@@ -136,5 +164,9 @@ public class StudentDAO implements DAO<Student, String, UserField> {
     @Override
     public void close() throws IOException {
 
+    }
+
+    public static StudentDAO build(){
+        return new StudentDAO();
     }
 }

@@ -2,6 +2,7 @@ package com.github.FranMarin123.model.dao;
 
 import com.github.FranMarin123.model.connection.ConnectionMariaDB;
 import com.github.FranMarin123.model.entity.Activity;
+import com.github.FranMarin123.model.entity.Subject;
 import com.github.FranMarin123.model.enums.ActivityField;
 
 import java.io.IOException;
@@ -9,12 +10,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
 
 
 public class ActivityDAO implements DAO<Activity,String, ActivityField>{
     private final static String INSERT = "INSERT INTO activity (description,name,percent,media_file) VALUES (?,?,?,?)";
     private final static String UPDATE = "UPDATE activity SET REPLACE=? WHERE id=?";
     private final static String FINDBYX = "SELECT a.id,a.dni,a.name,a.mail,a.pass,a.image FROM activity AS a WHERE a.REPLACE=?";
+    private final static String FINDBYID = "SELECT a.id,a.dni,a.name,a.mail,a.pass,a.image FROM activity AS a WHERE a.id=?";
     private final static String DELETE = "DELETE FROM activity WHERE name=?";
 
 
@@ -103,7 +106,7 @@ public class ActivityDAO implements DAO<Activity,String, ActivityField>{
                 ResultSet rs = pst.executeQuery();
                 result = new Activity();
                 if (rs.first()) {
-                    result.setId(rs.getInt("id_student"));
+                    result.setId(rs.getInt("id"));
                     result.setDescription(rs.getString("description"));
                     result.setName(rs.getString("name"));
                     result.setPercent(rs.getInt("percent"));
@@ -123,11 +126,65 @@ public class ActivityDAO implements DAO<Activity,String, ActivityField>{
 
     @Override
     public Activity findById(int key) {
-        return null;
+        Activity result = null;
+        if (key>0) {
+            try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(FINDBYID)) {
+                pst.setInt(1, key);
+                ResultSet rs = pst.executeQuery();
+                result = new Activity();
+                if (rs.first()) {
+                    result.setId(rs.getInt("id"));
+                    result.setDescription(rs.getString("description"));
+                    result.setName(rs.getString("name"));
+                    result.setPercent(rs.getInt("percent"));
+                    result.setMediaFile(rs.getString("media_file"));
+                    result.setSubject(SubjectDAO.build().findById(rs.getInt("id_subject")));
+                    result.setInscription(null);
+                }
+                if (result.getId()<1){
+                    result=null;
+                }
+            } catch (SQLException e) {
+                result = null;
+            }
+        }
+        return result;
     }
+
+    /*public HashMap<String,Activity> findBySubject(Subject subject) {
+        HashMap<String,Activity> result=new HashMap<>();
+        if (subject!=null && subject.getName()!=null && !subject.getName().isEmpty() ){
+            try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(FINDBYX)) {
+                pst.setInt(1, key);
+                ResultSet rs = pst.executeQuery();
+                result = new Activity();
+                if (rs.first()) {
+                    result.setId(rs.getInt("id"));
+                    result.setDescription(rs.getString("description"));
+                    result.setName(rs.getString("name"));
+                    result.setPercent(rs.getInt("percent"));
+                    result.setMediaFile(rs.getString("media_file"));
+                    result.setSubject(SubjectDAO.build().findById(rs.getInt("id_subject")));
+                    result.setInscription(null);
+                }
+                if (result.getId()<1){
+                    result=null;
+                }
+            } catch (SQLException e) {
+                result = null;
+            }
+        }
+        return result;
+    }*/
+
+
 
     @Override
     public void close() throws IOException {
 
+    }
+
+    public static ActivityDAO build(){
+        return new ActivityDAO();
     }
 }
