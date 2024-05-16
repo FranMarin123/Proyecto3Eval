@@ -1,12 +1,11 @@
 package com.github.FranMarin123.view;
 
-public enum Scenes {
-    BASE("view/base.fxml"),
+public enum Screen {
     PRINCIPAL("view/principalScreen.fxml");
 
     private String path;
 
-    Scenes(String path){
+    Screen(String path){
         this.path=path;
     }
 

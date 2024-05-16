@@ -26,12 +26,12 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        View view = AppController.loadFXML(Scenes.PRINCIPAL);
+        View view = AppController.loadFXML(Scenes.BASE);
         scene = new Scene(view.scene, 640, 480);
         currentController=(AppController) view.controller;
         currentController.onOpen(null);
         stage.setTitle("EducSoftware 1.0");
-        stage.getIcons().add(new Image("src/main/resources/com/github/FranMarin123/images/logoWindow.png"));
+        stage.getIcons().add(new Image(App.class.getResourceAsStream("images/logoWindow.png")));
         stage.setScene(scene);
         stage.show();
     }
