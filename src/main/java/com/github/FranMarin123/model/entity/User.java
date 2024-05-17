@@ -1,10 +1,11 @@
 package com.github.FranMarin123.model.entity;
 
 import java.io.File;
+import java.io.Serializable;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class User {
+public class User implements Serializable {
     protected String name;
     protected String dni;
     protected String mail;
@@ -67,6 +68,10 @@ public class User {
             this.pass = hashedPassword;
         } catch (NoSuchAlgorithmException e) {
         }
+    }
+
+    public void setPassWithoutHash(String pass){
+        this.pass=pass;
     }
 
     public File getPhoto() {

@@ -117,7 +117,7 @@ public class TeacherDAO implements DAO<Teacher, String, UserField>{
                     result.setDni(rs.getString("dni"));
                     result.setName(rs.getString("name"));
                     result.setMail(rs.getString("mail"));
-                    result.setPass(rs.getString("pass"));
+                    result.setPassWithoutHash(rs.getString("pass"));
                     result.setPhoto(rs.getString("image"));
                     result.setSubjects(SubjectDAO.build().findByTeacher(result));
                 }
@@ -144,7 +144,7 @@ public class TeacherDAO implements DAO<Teacher, String, UserField>{
                     result.setDni(rs.getString("dni"));
                     result.setName(rs.getString("name"));
                     result.setMail(rs.getString("mail"));
-                    result.setPass(rs.getString("pass"));
+                    result.setPassWithoutHash(rs.getString("pass"));
                     result.setPhoto(rs.getString("image"));
                 }
                 if (result.getId()<1){

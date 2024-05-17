@@ -20,7 +20,7 @@ public class TeacherSession {
         }
     }
 
-    public void closeSession(){
+    public static void closeSession(){
         _instance=null;
     }
 

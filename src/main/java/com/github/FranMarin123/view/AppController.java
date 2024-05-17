@@ -1,6 +1,12 @@
 package com.github.FranMarin123.view;
 
 import com.github.FranMarin123.App;
+import com.github.FranMarin123.model.entity.Student;
+import com.github.FranMarin123.model.entity.Teacher;
+import com.github.FranMarin123.model.entity.User;
+import com.github.FranMarin123.model.singleton.StudentSession;
+import com.github.FranMarin123.model.singleton.TeacherSession;
+import com.github.FranMarin123.utils.Serializator;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -22,10 +28,10 @@ public class AppController extends Controller implements Initializable {
 
     @Override
     public void onOpen(Object input) throws IOException {
-        changeScene(Scenes.PRINCIPAL,null);
+        changeScene(Scenes.PRINCIPAL, null);
     }
 
-    public void changeScene(Scenes scene,Object data) throws IOException {
+    public void changeScene(Scenes scene, Object data) throws IOException {
         View view = loadFXML(scene);
         borderPane.setCenter(view.scene);
         this.centerController = view.controller;
@@ -38,8 +44,8 @@ public class AppController extends Controller implements Initializable {
         Parent p = loader.load();
         Controller c = loader.getController();
         View view = new View();
-        view.scene=p;
-        view.controller=c;
+        view.scene = p;
+        view.controller = c;
         return view;
     }
 

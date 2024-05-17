@@ -133,7 +133,7 @@ public class StudentDAO implements DAO<Student, String, UserField> {
                     result.setDni(rs.getString("dni"));
                     result.setName(rs.getString("name"));
                     result.setMail(rs.getString("mail"));
-                    result.setPass(rs.getString("pass"));
+                    result.setPassWithoutHash(rs.getString("pass"));
                     result.setPhoto(rs.getString("image"));
                     result.setSubjects(SubjectDAO.build().findByStudent(result));
                     result.setInscription(null);
@@ -160,7 +160,7 @@ public class StudentDAO implements DAO<Student, String, UserField> {
                     tmpStudent.setDni(rs.getString("dni"));
                     tmpStudent.setName(rs.getString("name"));
                     tmpStudent.setMail(rs.getString("mail"));
-                    tmpStudent.setPass(rs.getString("pass"));
+                    tmpStudent.setPassWithoutHash(rs.getString("pass"));
                     tmpStudent.setPhoto(rs.getString("image"));
                     tmpStudent.addSubject(subject);
                     tmpStudent.setInscription(null);
@@ -175,7 +175,30 @@ public class StudentDAO implements DAO<Student, String, UserField> {
 
     @Override
     public Student findById(int key) {
-        return null;
+        Student result = null;
+        if (key > 0) {
+            try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(FINDBYX.replaceAll("REPLACE", UserField.DNI.getDbField()))) {
+                pst.setInt(1, key);
+                ResultSet rs = pst.executeQuery();
+                result = new Student();
+                if (rs.first()) {
+                    result.setId(rs.getInt("id"));
+                    result.setDni(rs.getString("dni"));
+                    result.setName(rs.getString("name"));
+                    result.setMail(rs.getString("mail"));
+                    result.setPassWithoutHash(rs.getString("pass"));
+                    result.setPhoto(rs.getString("image"));
+                    result.setSubjects(SubjectDAO.build().findByStudent(result));
+                    result.setInscription(null);
+                }
+                if (result.getId() < 1) {
+                    result = null;
+                }
+            } catch (SQLException e) {
+                result = null;
+            }
+        }
+        return result;
     }
 
     @Override

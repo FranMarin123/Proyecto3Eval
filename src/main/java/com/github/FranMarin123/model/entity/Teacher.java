@@ -1,10 +1,11 @@
 package com.github.FranMarin123.model.entity;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-public class Teacher extends User{
+public class Teacher extends User implements Serializable {
     private int id;
     private Set<Subject> subjects;
 

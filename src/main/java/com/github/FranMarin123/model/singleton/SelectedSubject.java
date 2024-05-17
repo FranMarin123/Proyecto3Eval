@@ -24,7 +24,7 @@ public class SelectedSubject {
         }
     }
 
-    public void removeSubject(){
+    public static void removeSubject(){
         _instance=null;
     }
 

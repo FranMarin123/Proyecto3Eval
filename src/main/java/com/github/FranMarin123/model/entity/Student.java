@@ -1,11 +1,12 @@
 package com.github.FranMarin123.model.entity;
 
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-public class Student extends User {
+public class Student extends User implements Serializable {
     private int id;
     private Inscription inscription;
     private Set<Subject> subjects;
@@ -28,6 +29,16 @@ public class Student extends User {
         setPhoto(photo);
         this.inscription = inscription;
     }
+
+    public Student(String dni, String name, String mail, String pass, String photo) {
+        this.dni = dni;
+        this.name = name;
+        this.mail = mail;
+        setPass(pass);
+        setPhoto(photo);
+    }
+
+
 
     public Student() {
         this("", "", "", "", /*Ruta imagen por defecto*/"", null, null);

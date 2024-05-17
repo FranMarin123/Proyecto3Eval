@@ -1,9 +1,12 @@
 package com.github.FranMarin123.model.entity;
 
+import com.github.FranMarin123.utils.Serializator;
+
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Objects;
 
-public class Subject {
+public class Subject  implements Serializable {
     private int id;
     private String name;
     private int hours;
