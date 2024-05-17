@@ -12,7 +12,7 @@
             <Image url="@../images/logo.png" />
          </image>
       </ImageView>
-      <Button fx:id="selectSubject" layoutX="150.0" layoutY="167.0" mnemonicParsing="false" text="Select Subject" />
+      <Button fx:id="selectSubject" layoutX="150.0" layoutY="167.0" mnemonicParsing="false" onAction="#selectSubjectButton" text="Select Subject" />
       <Button fx:id="removeSubject" layoutX="150.0" layoutY="218.0" mnemonicParsing="false" text="Remove Subject" />
       <Button fx:id="createSubject" layoutX="150.0" layoutY="120.0" mnemonicParsing="false" onAction="#createSubjectButton" text="Create Subject" />
       <Button fx:id="modifyTeacher" layoutX="357.0" layoutY="120.0" mnemonicParsing="false" text="Modify User" />

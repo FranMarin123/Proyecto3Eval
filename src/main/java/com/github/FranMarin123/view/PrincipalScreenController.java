@@ -70,7 +70,6 @@ public class PrincipalScreenController extends Controller implements Initializab
     public void enteringExitImg() {
         exit.setFitWidth(85);
         exit.setFitHeight(85);
-        exit.setFitWidth(85);
         anchorPane.setRightAnchor(exit, 65.0);
     }
 

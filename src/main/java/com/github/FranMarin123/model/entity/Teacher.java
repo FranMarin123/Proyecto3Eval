@@ -47,6 +47,12 @@ public class Teacher extends User implements Serializable {
         this.subjects = subjects;
     }
 
+    public void removeSubject(Subject subjectToRemove){
+        if (subjects!=null){
+            subjects.remove(subjectToRemove);
+        }
+    }
+
     @Override
     public boolean equals(Object object) {
         if (this == object) return true;

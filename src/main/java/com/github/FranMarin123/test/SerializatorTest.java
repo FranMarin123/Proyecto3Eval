@@ -13,7 +13,12 @@ public class SerializatorTest {
         if (test instanceof Teacher) {
             System.out.println(test);
         }*/
-        Teacher test=Serializator.deserializeObject("userSigned");
-        System.out.println(test);
+        //Teacher test=Serializator.deserializeObject("userSigned");
+        //System.out.println(test);
+
+        String hola="2";
+        String hola2="6";
+        int holan=Integer.valueOf(hola);
+        System.out.println(holan);
     }
 }

@@ -22,6 +22,12 @@ public class Subject  implements Serializable {
         this.students = students;
     }
 
+    public Subject(String name, int hours, Teacher teacher) {
+        this.name = name;
+        this.hours = hours;
+        this.teacher = teacher;
+    }
+
     public Subject() {
         this("", -1, new Teacher(), null,null);
     }

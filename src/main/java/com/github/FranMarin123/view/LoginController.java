@@ -21,11 +21,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
 public class LoginController extends Controller implements Initializable {
-
-
 
     @FXML
     private AnchorPane anchorPane;
@@ -42,13 +41,18 @@ public class LoginController extends Controller implements Initializable {
     @FXML
     private CheckBox stayLogged;
 
+    @FXML
+    private ImageView back;
+
     @Override
     public void onOpen(Object input) throws IOException {
         User userSigned=(User) Serializator.deserializeObject("userSigned");
         if (userSigned instanceof Teacher) {
-            TeacherSession.getInstance((Teacher) userSigned);
+            Teacher teacherToSet=TeacherDAO.build().findByX(userSigned.getDni(),UserField.DNI);
+            TeacherSession.getInstance(teacherToSet);
         } else if (userSigned instanceof Student) {
-            StudentSession.getInstance((Student) userSigned);
+            Student studentToSet=StudentDAO.build().findByX(userSigned.getDni(), UserField.DNI);
+            StudentSession.getInstance(studentToSet);
         }
         if (TeacherSession.getInstance()!=null){
             App.currentController.changeScene(Scenes.TEACHERFIRST,null);;
@@ -74,7 +78,7 @@ public class LoginController extends Controller implements Initializable {
                 TeacherSession.getInstance(teacherDB);
                 result=true;
             }else {
-                JavaFXUtils.showAlert("LOGIN ERROR", "Incorrect Password");
+                JavaFXUtils.showErrorAlert("LOGIN ERROR", "Incorrect Password");
             }
         } else if (StudentDAO.build().findByX(userToProve.getDni(), UserField.DNI)!=null) {
             Student studentDB=StudentDAO.build().findByX(userToProve.getDni(), UserField.DNI);
@@ -82,10 +86,10 @@ public class LoginController extends Controller implements Initializable {
                 StudentSession.getInstance(studentDB);
                 result=true;
             }else {
-                JavaFXUtils.showAlert("LOGIN ERROR", "Incorrect Password");
+                JavaFXUtils.showErrorAlert("LOGIN ERROR", "Incorrect Password");
             }
         }else {
-            JavaFXUtils.showAlert("LOGIN ERROR", "We can´t found a teacher or student with this DNI");
+            JavaFXUtils.showErrorAlert("LOGIN ERROR", "We can´t found a teacher or student with this DNI");
         }
         if (result){
             generateCookie();
@@ -107,4 +111,17 @@ public class LoginController extends Controller implements Initializable {
         }
     }
 
+    public void backClick() throws IOException {
+        App.currentController.changeScene(Scenes.PRINCIPAL,null);
+    }
+
+    public void enteringBackImg() {
+        back.setFitWidth(45);
+        back.setFitHeight(25);
+    }
+
+    public void exitingBackImg() {
+        back.setFitHeight(52);
+        back.setFitWidth(32);
+    }
 }

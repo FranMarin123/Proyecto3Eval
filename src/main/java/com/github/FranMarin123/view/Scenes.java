@@ -6,7 +6,8 @@ public enum Scenes {
     LOGIN("view/loginScreen.fxml"),
     REGISTER("view/registerScreen.fxml"),
     TEACHERFIRST("view/teacherLoggedFirstScreen.fxml"),
-    CREATESUBJECT("view/createSubjectScreen.fxml");
+    CREATESUBJECT("view/createSubjectScreen.fxml"),
+    TEACHERSELECTSUBJECT("view/selectSubjectTeacher.fxml");
 
     private String path;
 

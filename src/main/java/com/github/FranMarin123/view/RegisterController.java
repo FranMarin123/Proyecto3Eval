@@ -12,6 +12,7 @@ import com.github.FranMarin123.utils.JavaFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 
 import java.io.IOException;
 import java.net.URL;
@@ -36,6 +37,9 @@ public class RegisterController extends Controller implements Initializable {
     @FXML
     private Button register;
 
+    @FXML
+    private ImageView back;
+
     @Override
     public void onOpen(Object input) throws IOException {
         choiceBox.getItems().add("Teacher");
@@ -54,7 +58,7 @@ public class RegisterController extends Controller implements Initializable {
 
     public void registerClick() throws IOException {
         if (choiceBox.getValue()==null){
-            JavaFXUtils.showAlert("ERROR CREATING STUDENT", "Type of user not selected");
+            JavaFXUtils.showErrorAlert("ERROR CREATING USER", "Type of user not selected");
         }else {
             if (choiceBox.getValue().equals("Teacher")) {
                 Teacher teacherToRegister = new Teacher(name.getText(), dni.getText(), mail.getText(), pass.getText(), "images/defaultAvatar.png");
@@ -64,7 +68,7 @@ public class RegisterController extends Controller implements Initializable {
                     TeacherSession.getInstance(teacherToRegister);
                     App.currentController.changeScene(Scenes.TEACHERFIRST,null);
                 } else {
-                    JavaFXUtils.showAlert("ERROR CREATING TEACHER", "User not created because DNI or Mail is in use");
+                    JavaFXUtils.showErrorAlert("ERROR CREATING TEACHER", "User not created because DNI or Mail is in use");
                 }
             } else if (choiceBox.getValue().equals("Student")) {
                 Student studentToRegister = new Student(name.getText(), dni.getText(), mail.getText(), pass.getText(), "images/defaultAvatar.png");
@@ -73,10 +77,24 @@ public class RegisterController extends Controller implements Initializable {
                     StudentDAO.build().save(studentToRegister);
                     StudentSession.getInstance(studentToRegister);
                 } else {
-                    JavaFXUtils.showAlert("ERROR CREATING STUDENT", "User not created because DNI or Mail is in use");
+                    JavaFXUtils.showErrorAlert("ERROR CREATING STUDENT", "User not created because DNI or Mail is in use");
                 }
             }
         }
+    }
+
+    public void backClick() throws IOException {
+        App.currentController.changeScene(Scenes.PRINCIPAL,null);
+    }
+
+    public void enteringBackImg() {
+        back.setFitWidth(45);
+        back.setFitHeight(25);
+    }
+
+    public void exitingBackImg() {
+        back.setFitHeight(52);
+        back.setFitWidth(32);
     }
 
 }

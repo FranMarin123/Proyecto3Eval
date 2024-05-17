@@ -58,5 +58,8 @@ public class TeacherLoggedFirstController extends Controller implements Initiali
         App.currentController.changeScene(Scenes.CREATESUBJECT, null);
     }
 
+    public void selectSubjectButton() throws IOException {
+        App.currentController.changeScene(Scenes.TEACHERSELECTSUBJECT, null);
+    }
 
 }
