@@ -8,8 +8,10 @@ import com.github.FranMarin123.model.enums.UserField;
 
 public class InsertTest {
     public static void main(String[] args) {
-        Student student= StudentDAO.build().findByX("Juan", UserField.NAME);
-        Subject subject=SubjectDAO.build().findByX("Matematicas","name");
+        Student student= StudentDAO.build().findByX("98765432B", UserField.DNI);
+        Subject subject=SubjectDAO.build().findByX("Lengua","name");
+        System.out.println(student);
+        System.out.println(subject);
         System.out.println(SubjectDAO.build().saveStudentSubject(student,subject));
     }
 }

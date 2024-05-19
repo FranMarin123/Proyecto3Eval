@@ -7,7 +7,24 @@ public enum Scenes {
     REGISTER("view/registerScreen.fxml"),
     TEACHERFIRST("view/teacherLoggedFirstScreen.fxml"),
     CREATESUBJECT("view/createSubjectScreen.fxml"),
-    TEACHERSELECTSUBJECT("view/selectSubjectTeacher.fxml");
+    TEACHERSELECTSUBJECT("view/selectSubjectTeacher.fxml"),
+    SELECTEDSUBJECT("view/selectedSubjectScreen.fxml"),
+    ADDSTUDENTSUBJECT("view/addStudentScreen.fxml"),
+    REMOVESTUDENTSUBJECT("view/removeStudentScreen.fxml"),
+    ADDACTIVITY("view/createActivityScreen.fxml"),
+    DELETEACTIVITY("view/deleteActivity.fxml"),
+    BROWSESTUDENT("view/browseStudentInsertDni.fxml"),
+    SHOWSTUDENTSUBJECT("view/showStudentSubject.fxml"),
+    STUDENTSCORE("view/addStudentScore.fxml"),
+    DELETESUBJECT("view/deleteSubjectTeacher.fxml"),
+    MODIFYTEACHER("view/modifyTeacherScreen.fxml"),
+    DELETETEACHER("view/deleteTeacher.fxml"),
+    STUDENTFIRST("view/studentLoggedFirstScreen.fxml"),
+    STUDENTSELECTSUBJECT("view/selectSubjectStudent.fxml"),
+    STUDENTSELECTACTIVITY("view/selectActivitiesStudent.fxml"),
+    SHOWSTUDENTSCORE("view/showStudentScore.fxml"),
+    MODIFYSTUDENT("view/modifyStudentScreen.fxml"),
+    DELETESTUDENT("view/deleteStudent.fxml");
 
     private String path;
 

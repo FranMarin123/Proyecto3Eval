@@ -45,10 +45,11 @@ public class TeacherSelectSubjectController extends Controller implements Initia
         App.currentController.changeScene(Scenes.TEACHERFIRST,null);
     }
 
-    public void selectSubjectButton(){
+    public void selectSubjectButton() throws IOException {
         if (choiceBox!=null && choiceBox.getValue()!=null){
             SelectedSubject.getInstance(SubjectDAO.build().findByX(choiceBox.getValue(),"name"));
             JavaFXUtils.showConfirmAlert("SUBJECT SELECTED CORRECTLY", "Subject selected");
+            App.currentController.changeScene(Scenes.SELECTEDSUBJECT,null);
         }else {
             JavaFXUtils.showErrorAlert("ERROR IN SELECTION", "Subject not selected");
         }

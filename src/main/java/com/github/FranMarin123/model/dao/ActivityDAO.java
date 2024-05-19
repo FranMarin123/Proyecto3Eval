@@ -2,6 +2,7 @@ package com.github.FranMarin123.model.dao;
 
 import com.github.FranMarin123.model.connection.ConnectionMariaDB;
 import com.github.FranMarin123.model.entity.Activity;
+import com.github.FranMarin123.model.entity.Inscription;
 import com.github.FranMarin123.model.entity.Subject;
 import com.github.FranMarin123.model.enums.ActivityField;
 
@@ -44,6 +45,7 @@ public class ActivityDAO implements DAO<Activity, String, ActivityField> {
                     if (rs.first()) {
                         objectToSave.setId(rs.getInt(1));
                     }
+                    result=objectToSave;
                 } catch (SQLException e) {
                     result = null;
                 }
@@ -90,9 +92,10 @@ public class ActivityDAO implements DAO<Activity, String, ActivityField> {
         Activity result = null;
         if (objectToDelete != null && (objectToDelete.getName() != null || objectToDelete.getName().isEmpty())) {
             try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(DELETE)) {
-                result = findByX(objectToDelete.getName(), ActivityField.NAME);
+                InscriptionDAO.build().deleteFromActivity(objectToDelete);
                 pst.setString(1, objectToDelete.getName());
                 pst.executeUpdate();
+                result = objectToDelete;
             } catch (SQLException e) {
                 result = null;
             }

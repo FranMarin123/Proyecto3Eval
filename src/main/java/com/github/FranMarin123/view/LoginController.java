@@ -107,7 +107,11 @@ public class LoginController extends Controller implements Initializable {
 
     public void loginClick() throws IOException {
         if (proveLogin()){
-            App.currentController.changeScene(Scenes.TEACHERFIRST,null);
+            if (TeacherSession.getInstance()!=null) {
+                App.currentController.changeScene(Scenes.TEACHERFIRST, null);
+            }else if (StudentSession.getInstance()!=null){
+                App.currentController.changeScene(Scenes.STUDENTFIRST, null);
+            }
         }
     }
 

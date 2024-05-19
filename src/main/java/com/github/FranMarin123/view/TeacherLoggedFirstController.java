@@ -5,6 +5,7 @@ import com.github.FranMarin123.model.singleton.TeacherSession;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.text.Text;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,9 +31,12 @@ public class TeacherLoggedFirstController extends Controller implements Initiali
     @FXML
     private Button logout;
 
+    @FXML
+    private Text welcomePrint;
+
     @Override
     public void onOpen(Object input) throws IOException {
-        System.out.println(TeacherSession.getInstance().getCurrentTeacher());
+        welcomePrint.setText("Welcome "+TeacherSession.getInstance().getCurrentTeacher().getName());
     }
 
     @Override
@@ -62,4 +66,15 @@ public class TeacherLoggedFirstController extends Controller implements Initiali
         App.currentController.changeScene(Scenes.TEACHERSELECTSUBJECT, null);
     }
 
+    public void deleteSubjectButton() throws IOException {
+        App.currentController.changeScene(Scenes.DELETESUBJECT, null);
+    }
+
+    public void modifyTeacherButton() throws IOException {
+        App.currentController.changeScene(Scenes.MODIFYTEACHER, null);
+    }
+
+    public void deleteTeacherButton() throws IOException {
+        App.currentController.changeScene(Scenes.DELETETEACHER, null);
+    }
 }

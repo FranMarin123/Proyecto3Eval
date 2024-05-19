@@ -33,6 +33,10 @@ public class App extends Application {
         stage.setTitle("EducSoftware 1.0");
         stage.getIcons().add(new Image(App.class.getResourceAsStream("images/logoWindow.png")));
         stage.setScene(scene);
+        stage.setMinHeight(520);
+        stage.setMinWidth(680);
+        stage.setMaxHeight(520);
+        stage.setMaxWidth(680);
         stage.show();
     }
 

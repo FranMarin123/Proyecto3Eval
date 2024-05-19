@@ -8,8 +8,8 @@ import com.github.FranMarin123.model.enums.UserField;
 
 public class DeleteTest {
     public static void main(String[] args) {
-        Student student= StudentDAO.build().findByX("Juan", UserField.NAME);
-        Subject subject=SubjectDAO.build().findByX("Matematicas","name");
+        Student student= StudentDAO.build().findByX("98765432B", UserField.DNI);
+        Subject subject=SubjectDAO.build().findByX("Lengua","name");
         System.out.println(SubjectDAO.build().removeStudentFromSubject(student,subject));
     }
 }

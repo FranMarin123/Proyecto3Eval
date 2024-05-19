@@ -4,6 +4,8 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.FranMarin123.view.TeacherLoggedFirstController">
    <children>
@@ -13,10 +15,15 @@
          </image>
       </ImageView>
       <Button fx:id="selectSubject" layoutX="150.0" layoutY="167.0" mnemonicParsing="false" onAction="#selectSubjectButton" text="Select Subject" />
-      <Button fx:id="removeSubject" layoutX="150.0" layoutY="218.0" mnemonicParsing="false" text="Remove Subject" />
+      <Button fx:id="removeSubject" layoutX="150.0" layoutY="218.0" mnemonicParsing="false" onAction="#deleteSubjectButton" text="Remove Subject" />
       <Button fx:id="createSubject" layoutX="150.0" layoutY="120.0" mnemonicParsing="false" onAction="#createSubjectButton" text="Create Subject" />
-      <Button fx:id="modifyTeacher" layoutX="357.0" layoutY="120.0" mnemonicParsing="false" text="Modify User" />
-      <Button fx:id="deleteTeacher" layoutX="357.0" layoutY="167.0" mnemonicParsing="false" text="Delete User" />
+      <Button fx:id="modifyTeacher" layoutX="357.0" layoutY="120.0" mnemonicParsing="false" onAction="#modifyTeacherButton" text="Modify User" />
+      <Button fx:id="deleteTeacher" layoutX="357.0" layoutY="167.0" mnemonicParsing="false" onAction="#deleteTeacherButton" text="Delete User" />
       <Button fx:id="logout" layoutX="357.0" layoutY="218.0" mnemonicParsing="false" onAction="#logoutButton" text="Log Out" />
+      <Text fx:id="welcomePrint" layoutX="417.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

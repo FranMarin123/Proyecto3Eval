@@ -1,9 +1,10 @@
 package com.github.FranMarin123.model.entity;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Activity {
+public class Activity implements Serializable {
     private int id;
     private String name;
     private String description;
@@ -22,8 +23,16 @@ public class Activity {
         this.inscription = inscription;
     }
 
+    public Activity(String name, String description, String mediaFile, int percent, Subject subject) {
+        this.name = name;
+        this.description = description;
+        setMediaFile(mediaFile);
+        this.percent = percent;
+        this.subject = subject;
+    }
+
     public Activity() {
-        this(-1, "", "", "", -1, new Subject(), new Inscription());
+        this("", "", "", -1, new Subject());
     }
 
     public int getId() {

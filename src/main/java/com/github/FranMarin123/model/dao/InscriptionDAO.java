@@ -12,11 +12,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class InscriptionDAO{
-    private final String INSERT="INSERT INTO inscription (id_student,id_act) VALUES (?,?)";
+    private final String INSERT="INSERT INTO inscription (id_student,id_act,nota) VALUES (?,?,?)";
     private final String ADDSCORE="UPDATE inscription set nota=? WHERE id_student=? AND id_act=?";
     private final String DELETE="DELETE FROM inscription WHERE id_student=? AND id_act=?";
-    private final String FIND="SELECT s.id,a.id,i.nota FROM inscription AS i, student AS s, activity AS a " +
-            "WHERE s.id=i.id_student AND s.id=i.id_act AND i.id_act=? AND i.id_student=?";
+    private final String DELETEFROMSTUDENT="DELETE FROM inscription WHERE id_student=?";
+    private final String DELETEFROMACTIVITY="DELETE FROM inscription WHERE id_act=?";
+    private final String FIND="SELECT id_student,id_act,nota FROM inscription WHERE id_act=? AND id_student=?";
+
 
     public Inscription save(Inscription inscription) {
         Inscription result=null;
@@ -24,14 +26,12 @@ public class InscriptionDAO{
             try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS)) {
                 pst.setInt(1, inscription.getStudent().getId());
                 pst.setInt(2, inscription.getActivity().getId());
+                pst.setInt(3, inscription.getNota());
                 pst.executeUpdate();
                 result=inscription;
             } catch (SQLException e) {
                 result=null;
             }
-        }
-        if (addScore(inscription)){
-            result=inscription;
         }
         return result;
     }
@@ -67,6 +67,34 @@ public class InscriptionDAO{
         return result;
     }
 
+    public boolean deleteFromStudent(Student objectToDelete){
+        boolean result=false;
+        if (objectToDelete!=null && objectToDelete.getId()>0){
+            try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(DELETEFROMSTUDENT)) {
+                pst.setInt(1, objectToDelete.getId());
+                pst.executeUpdate();
+                result=true;
+            } catch (SQLException e) {
+                result=false;
+            }
+        }
+        return result;
+    }
+
+    public boolean deleteFromActivity(Activity objectToDelete){
+        boolean result=false;
+        if (objectToDelete!=null && objectToDelete.getId()>0){
+            try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(DELETEFROMACTIVITY)) {
+                pst.setInt(1, objectToDelete.getId());
+                pst.executeUpdate();
+                result=true;
+            } catch (SQLException e) {
+                result=false;
+            }
+        }
+        return result;
+    }
+
     public Inscription find(Student student, Activity activity) {
         Inscription result=null;
         if (student!=null && activity!=null && student.getId()>0 && activity.getId()>0){
@@ -74,8 +102,8 @@ public class InscriptionDAO{
                 pst.setInt(1, activity.getId());
                 pst.setInt(2, student.getId());
                 ResultSet rs = pst.executeQuery();
-                result = new Inscription();
                 if (rs.first()) {
+                    result = new Inscription();
                     result.setStudent(StudentDAO.build().findById(rs.getInt("id_student")));
                     result.setActivity(ActivityDAO.build().findById(rs.getInt("id_act")));
                     result.setNota(rs.getInt("nota"));

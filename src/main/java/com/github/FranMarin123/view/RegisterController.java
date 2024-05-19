@@ -17,6 +17,7 @@ import javafx.scene.image.ImageView;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 
 public class RegisterController extends Controller implements Initializable {
     @FXML
@@ -32,7 +33,7 @@ public class RegisterController extends Controller implements Initializable {
     private PasswordField pass;
 
     @FXML
-    private ChoiceBox<String> choiceBox=new ChoiceBox<>();
+    private ChoiceBox<String> choiceBox = new ChoiceBox<>();
 
     @FXML
     private Button register;
@@ -57,34 +58,41 @@ public class RegisterController extends Controller implements Initializable {
     }
 
     public void registerClick() throws IOException {
-        if (choiceBox.getValue()==null){
+        if (choiceBox.getValue() == null) {
             JavaFXUtils.showErrorAlert("ERROR CREATING USER", "Type of user not selected");
-        }else {
-            if (choiceBox.getValue().equals("Teacher")) {
-                Teacher teacherToRegister = new Teacher(name.getText(), dni.getText(), mail.getText(), pass.getText(), "images/defaultAvatar.png");
-                if (TeacherDAO.build().findByX(teacherToRegister.getDni(), UserField.DNI) == null
-                        && TeacherDAO.build().findByX(teacherToRegister.getMail(), UserField.MAIL) == null) {
-                    TeacherDAO.build().save(teacherToRegister);
-                    TeacherSession.getInstance(teacherToRegister);
-                    App.currentController.changeScene(Scenes.TEACHERFIRST,null);
-                } else {
-                    JavaFXUtils.showErrorAlert("ERROR CREATING TEACHER", "User not created because DNI or Mail is in use");
-                }
-            } else if (choiceBox.getValue().equals("Student")) {
-                Student studentToRegister = new Student(name.getText(), dni.getText(), mail.getText(), pass.getText(), "images/defaultAvatar.png");
-                if (StudentDAO.build().findByX(studentToRegister.getDni(), UserField.DNI) == null &&
-                        StudentDAO.build().findByX(studentToRegister.getMail(), UserField.MAIL) == null) {
-                    StudentDAO.build().save(studentToRegister);
-                    StudentSession.getInstance(studentToRegister);
-                } else {
-                    JavaFXUtils.showErrorAlert("ERROR CREATING STUDENT", "User not created because DNI or Mail is in use");
+        } else {
+            if (!Pattern.compile("\\d{8}[a-zA-Z]").matcher(dni.getText()).matches()
+                    && !Pattern.compile("[a-zA-Z]+").matcher(name.getText()).matches()
+                    && !Pattern.compile("^[\\w.%+-]+@[\\w.-]+\\.[a-zA-Z]{2,}$").matcher(mail.getText()).matches()){
+                JavaFXUtils.showErrorAlert("ERROR CREATING USER", "Please check text fields");
+            }else{
+                if (choiceBox.getValue().equals("Teacher")) {
+                    Teacher teacherToRegister = new Teacher(name.getText(), dni.getText(), mail.getText(), pass.getText(), "images/defaultAvatar.png");
+                    if (TeacherDAO.build().findByX(teacherToRegister.getDni(), UserField.DNI) == null
+                            && TeacherDAO.build().findByX(teacherToRegister.getMail(), UserField.MAIL) == null) {
+                        TeacherDAO.build().save(teacherToRegister);
+                        TeacherSession.getInstance(teacherToRegister);
+                        App.currentController.changeScene(Scenes.TEACHERFIRST, null);
+                    } else {
+                        JavaFXUtils.showErrorAlert("ERROR CREATING TEACHER", "User not created because DNI or Mail is in use");
+                    }
+                } else if (choiceBox.getValue().equals("Student")) {
+                    Student studentToRegister = new Student(dni.getText(), name.getText(), mail.getText(), pass.getText(), "images/defaultAvatar.png");
+                    if (StudentDAO.build().findByX(studentToRegister.getDni(), UserField.DNI) == null &&
+                            StudentDAO.build().findByX(studentToRegister.getMail(), UserField.MAIL) == null) {
+                        StudentDAO.build().save(studentToRegister);
+                        StudentSession.getInstance(studentToRegister);
+                        App.currentController.changeScene(Scenes.STUDENTFIRST, null);
+                    } else {
+                        JavaFXUtils.showErrorAlert("ERROR CREATING STUDENT", "User not created because DNI or Mail is in use");
+                    }
                 }
             }
         }
     }
 
     public void backClick() throws IOException {
-        App.currentController.changeScene(Scenes.PRINCIPAL,null);
+        App.currentController.changeScene(Scenes.PRINCIPAL, null);
     }
 
     public void enteringBackImg() {

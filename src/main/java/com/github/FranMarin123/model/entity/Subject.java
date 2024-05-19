@@ -99,7 +99,7 @@ public class Subject  implements Serializable {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", hours=" + hours +
-                ", teacher=" + teacher +
+                ", teacher=" + teacher.getName() +
                 ", activities=" + activities +
                 ", students=" + students +
                 '}';
@@ -125,7 +125,7 @@ public class Subject  implements Serializable {
             if (students == null) {
                 students = new HashMap<>();
             }
-            if (students.containsKey(studentToAdd.getDni())) {
+            if (!students.containsKey(studentToAdd.getDni())) {
                 students.put(studentToAdd.getDni(), studentToAdd);
                 result = true;
             }

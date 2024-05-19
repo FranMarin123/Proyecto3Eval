@@ -16,10 +16,7 @@ public class SelectedSubject {
     }
 
     public static void getInstance(Subject subjectToUse) {
-        if (subjectToUse!=null && (TeacherSession.getInstance().getCurrentTeacher()!=null &&
-                TeacherSession.getInstance().getCurrentTeacher().getSubjects().contains(subjectToUse))
-                || (StudentSession.getInstance().getCurrentStudent()!=null &&
-                StudentSession.getInstance().getCurrentStudent().getSubjects().contains(subjectToUse))) {
+        if (subjectToUse!=null) {
             _instance = new SelectedSubject(subjectToUse);
         }
     }

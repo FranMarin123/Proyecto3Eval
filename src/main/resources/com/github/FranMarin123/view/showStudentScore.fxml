@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.FranMarin123.view.ShowStudentScoreController">
+   <children>
+      <ImageView fitHeight="99.0" fitWidth="84.0" layoutX="26.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="26.0" AnchorPane.topAnchor="14.0">
+         <image>
+            <Image url="@../images/logo.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="back" fitHeight="32.0" fitWidth="52.0" layoutX="22.0" layoutY="263.0" onMouseClicked="#backClick" onMouseEntered="#enteringBackImg" onMouseExited="#exitingBackImg" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="21.0" AnchorPane.leftAnchor="25.0">
+         <image>
+            <Image url="@../images/flechaBack.png" />
+         </image>
+      </ImageView>
+      <Text fx:id="scoreShow" layoutX="195.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" AnchorPane.leftAnchor="195.0" AnchorPane.topAnchor="106.41796875">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

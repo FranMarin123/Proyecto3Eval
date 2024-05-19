@@ -16,7 +16,7 @@ public class StudentDAO implements DAO<Student, String, UserField> {
     private final static String INSERT = "INSERT INTO student (dni,name,mail,pass,image) VALUES (?,?,?,?,?)";
     private final static String UPDATE = "UPDATE student SET REPLACE=? WHERE id=?";
     private final static String FINDBYX = "SELECT s.id,s.dni,s.name,s.mail,s.pass,s.image FROM student AS s WHERE s.REPLACE=?";
-    private final static String FINDBYSUBJECT = "SELECT s.id_student FROM STUDENTSUBJECT AS s WHERE s.id_subject=?";
+    private final static String FINDBYSUBJECT = "SELECT stu.id,stu.dni,stu.name,stu.mail,stu.pass,stu.image FROM STUDENTSUBJECT AS s, student AS stu WHERE s.id_student=stu.id AND s.id_subject=?";
     private final static String DELETE = "DELETE FROM student WHERE dni=?";
     private final static String DELETESUBJECTSFORSTUDENT = "DELETE FROM STUDENTSUBJECT WHERE id_student=?";
 
@@ -97,6 +97,7 @@ public class StudentDAO implements DAO<Student, String, UserField> {
             try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(DELETE)) {
                 result = findByX(objectToDelete.getDni(), UserField.DNI);
                 deleteSubjectStudent(result);
+                InscriptionDAO.build().deleteFromStudent(result);
                 pst.setString(1, objectToDelete.getDni());
                 pst.executeUpdate();
             } catch (SQLException e) {

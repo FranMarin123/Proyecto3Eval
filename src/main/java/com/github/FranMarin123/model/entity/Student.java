@@ -86,7 +86,7 @@ public class Student extends User implements Serializable {
         return "Student{" +
                 "id=" + id +
                 ", inscription=" + inscription +
-                ", subjects=" + subjects +
+                //", subjects=" + subjects +
                 ", name='" + name + '\'' +
                 ", dni='" + dni + '\'' +
                 ", mail='" + mail + '\'' +

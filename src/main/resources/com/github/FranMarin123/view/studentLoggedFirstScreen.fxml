@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.FranMarin123.view.StudentLoggedController">
+   <children>
+      <ImageView fitHeight="99.0" fitWidth="84.0" layoutX="26.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="26.0" AnchorPane.topAnchor="14.0">
+         <image>
+            <Image url="@../images/logo.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="150.0" layoutY="167.0" mnemonicParsing="false" onAction="#deleteStudent" text="Delete User" />
+      <Button layoutX="150.0" layoutY="120.0" mnemonicParsing="false" onAction="#selectSubject" text="Select Subject" />
+      <Button layoutX="357.0" layoutY="120.0" mnemonicParsing="false" onAction="#modifyStudent" text="Modify User" />
+      <Button layoutX="357.0" layoutY="167.0" mnemonicParsing="false" onAction="#logoutButton" text="Log Out" />
+      <Text fx:id="welcomePrint" layoutX="417.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

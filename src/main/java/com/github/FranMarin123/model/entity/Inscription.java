@@ -1,8 +1,9 @@
 package com.github.FranMarin123.model.entity;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Inscription {
+public class Inscription implements Serializable {
     private Student student;
     private Activity activity;
     private int nota;

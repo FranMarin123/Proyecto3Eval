@@ -70,7 +70,7 @@ public class Teacher extends User implements Serializable {
     public String toString() {
         return "Teacher{" +
                 "id=" + id +
-                ", subjects=" + subjects +
+                //", subjects=" + subjects +
                 ", name='" + name + '\'' +
                 ", dni='" + dni + '\'' +
                 ", mail='" + mail + '\'' +

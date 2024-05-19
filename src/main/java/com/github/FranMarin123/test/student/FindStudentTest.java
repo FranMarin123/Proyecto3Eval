@@ -5,6 +5,6 @@ import com.github.FranMarin123.model.enums.UserField;
 
 public class FindStudentTest {
     public static void main(String[] args) {
-        System.out.println(StudentDAO.build().findByX("Juan", UserField.NAME));
+        System.out.println(StudentDAO.build().findByX("98765432D", UserField.DNI));
     }
 }
