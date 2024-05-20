@@ -1,7 +1,9 @@
-package com.github.FranMarin123.view;
+package com.github.FranMarin123.controller.teacher;
 
 import com.github.FranMarin123.App;
+import com.github.FranMarin123.controller.Controller;
 import com.github.FranMarin123.model.singleton.TeacherSession;
+import com.github.FranMarin123.view.Scenes;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -49,6 +51,10 @@ public class TeacherLoggedFirstController extends Controller implements Initiali
 
     }
 
+    /**
+     * This method remove a file with information about Teacher
+     * @throws IOException
+     */
     public void logoutButton() throws IOException {
         TeacherSession.closeSession();
         File cookie = new File("userSigned");

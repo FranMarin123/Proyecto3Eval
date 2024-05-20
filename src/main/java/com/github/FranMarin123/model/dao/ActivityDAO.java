@@ -22,7 +22,11 @@ public class ActivityDAO implements DAO<Activity, String, ActivityField> {
     private final static String FINDBYSUBJECT = "SELECT a.id,a.description,a.name,a.percent,a.media_file,a.id_subject FROM activity AS a WHERE a.id_subject=?";
     private final static String DELETE = "DELETE FROM activity WHERE name=?";
 
-
+    /**
+     * This method insert or update a activity in database
+     * @param objectToSave activity to save
+     * @return activity saved
+     */
     @Override
     public Activity save(Activity objectToSave) {
         Activity result = null;
@@ -87,6 +91,11 @@ public class ActivityDAO implements DAO<Activity, String, ActivityField> {
         return result;
     }
 
+    /**
+     * This method delete a activity from database
+     * @param objectToDelete Activity to delete
+     * @return Activity deleted
+     */
     @Override
     public Activity delete(Activity objectToDelete) {
         Activity result = null;
@@ -103,6 +112,12 @@ public class ActivityDAO implements DAO<Activity, String, ActivityField> {
         return result;
     }
 
+    /**
+     * This method find a activity in database
+     * @param key Information to find activity
+     * @param field Field to browse with this information
+     * @return Activity find with this information
+     */
     @Override
     public Activity findByX(String key, ActivityField field) {
         Activity result = null;
@@ -130,6 +145,11 @@ public class ActivityDAO implements DAO<Activity, String, ActivityField> {
         return result;
     }
 
+    /**
+     * Find a activity by id
+     * @param key Id of the activity
+     * @return Activity found with this id
+     */
     @Override
     public Activity findById(int key) {
         Activity result = null;
@@ -157,6 +177,11 @@ public class ActivityDAO implements DAO<Activity, String, ActivityField> {
         return result;
     }
 
+    /**
+     * This method find all activities in a subject
+     * @param subject Subject of the activities
+     * @return Return a list of activities in thos subject
+     */
     public HashMap<String, Activity> findBySubject(Subject subject) {
         HashMap<String, Activity> result = new HashMap<>();
         if (subject != null && subject.getId() > 0) {

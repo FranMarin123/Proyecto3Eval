@@ -19,7 +19,11 @@ public class InscriptionDAO{
     private final String DELETEFROMACTIVITY="DELETE FROM inscription WHERE id_act=?";
     private final String FIND="SELECT id_student,id_act,nota FROM inscription WHERE id_act=? AND id_student=?";
 
-
+    /**
+     * This method insert or update a inscription in database
+     * @param inscription inscription to save
+     * @return inscription saved
+     */
     public Inscription save(Inscription inscription) {
         Inscription result=null;
         if (inscription!=null && inscription.getActivity()!=null && inscription.getStudent()!=null && find(inscription.getStudent(),inscription.getActivity())==null){
@@ -36,6 +40,11 @@ public class InscriptionDAO{
         return result;
     }
 
+    /**
+     * This method update score
+     * @param inscription
+     * @return
+     */
     public boolean addScore(Inscription inscription){
         boolean result=false;
         if (inscription!=null && inscription.getActivity()!=null && inscription.getStudent()!=null && inscription.getNota()>-1 && inscription.getNota()<11){
@@ -52,6 +61,11 @@ public class InscriptionDAO{
         return result;
     }
 
+    /**
+     * This method delete a inscription from database
+     * @param objectToDelete Inscription to delete
+     * @return Inscription deleted
+     */
     public Inscription delete(Inscription objectToDelete) {
         Inscription result=null;
         if (objectToDelete!=null && objectToDelete.getActivity()!=null && objectToDelete.getStudent()!=null){
@@ -67,6 +81,11 @@ public class InscriptionDAO{
         return result;
     }
 
+    /**
+     * This method deletes all activities of a student
+     * @param objectToDelete Student to delete all activities
+     * @return Return true if delete was sucessfull or false if not
+     */
     public boolean deleteFromStudent(Student objectToDelete){
         boolean result=false;
         if (objectToDelete!=null && objectToDelete.getId()>0){
@@ -81,6 +100,11 @@ public class InscriptionDAO{
         return result;
     }
 
+    /**
+     * This method deletes all studens of a activities
+     * @param objectToDelete activity to delete all studens
+     * @return Return true if delete was sucessfull or false if not
+     */
     public boolean deleteFromActivity(Activity objectToDelete){
         boolean result=false;
         if (objectToDelete!=null && objectToDelete.getId()>0){
@@ -95,6 +119,12 @@ public class InscriptionDAO{
         return result;
     }
 
+    /**
+     * Find a inscription with a student and a activity
+     * @param student Student of the inscription
+     * @param activity Activity of the inscription
+     * @return Return the inscription
+     */
     public Inscription find(Student student, Activity activity) {
         Inscription result=null;
         if (student!=null && activity!=null && student.getId()>0 && activity.getId()>0){

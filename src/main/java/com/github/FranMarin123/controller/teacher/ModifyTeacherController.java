@@ -1,11 +1,13 @@
-package com.github.FranMarin123.view;
+package com.github.FranMarin123.controller.teacher;
 
 import com.github.FranMarin123.App;
+import com.github.FranMarin123.controller.Controller;
 import com.github.FranMarin123.model.dao.TeacherDAO;
 import com.github.FranMarin123.model.entity.Teacher;
 import com.github.FranMarin123.model.enums.UserField;
 import com.github.FranMarin123.model.singleton.TeacherSession;
 import com.github.FranMarin123.utils.JavaFXUtils;
+import com.github.FranMarin123.view.Scenes;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.PasswordField;
@@ -45,6 +47,10 @@ public class ModifyTeacherController extends Controller implements Initializable
 
     }
 
+    /**
+     * This method checks textfields and modify actual teacher with new information
+     * @throws IOException
+     */
     public void modifyClick() throws IOException {
         Teacher teacherToRegister = TeacherSession.getInstance().getCurrentTeacher();
         Teacher oldTeacher=TeacherDAO.build().findByX(teacherToRegister.getDni(),UserField.DNI);

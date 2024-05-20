@@ -1,12 +1,12 @@
-package com.github.FranMarin123.view;
+package com.github.FranMarin123.controller.teacher;
 
 import com.github.FranMarin123.App;
-import com.github.FranMarin123.model.dao.StudentDAO;
+import com.github.FranMarin123.controller.Controller;
 import com.github.FranMarin123.model.dao.TeacherDAO;
 import com.github.FranMarin123.model.singleton.SelectedSubject;
-import com.github.FranMarin123.model.singleton.StudentSession;
 import com.github.FranMarin123.model.singleton.TeacherSession;
 import com.github.FranMarin123.utils.JavaFXUtils;
+import com.github.FranMarin123.view.Scenes;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class RemoveStudentController extends Controller implements Initializable {
+public class RemoveTeacherController extends Controller implements Initializable {
 
     @FXML
     private ImageView back;
@@ -35,16 +35,20 @@ public class RemoveStudentController extends Controller implements Initializable
 
     }
 
+    /**
+     * This method delete a teacher from database and close actual session
+     * @throws IOException
+     */
     public void confirmationClick() throws IOException {
-        StudentDAO.build().delete(StudentSession.getInstance().getCurrentStudent());
-        StudentSession.closeSession();
-        JavaFXUtils.showConfirmAlert("STUDENT DELETED","Student deleted correctly");
+        TeacherDAO.build().delete(TeacherSession.getInstance().getCurrentTeacher());
+        TeacherSession.closeSession();
+        JavaFXUtils.showConfirmAlert("TEACHER DELETED","Teacher deleted correctly");
         App.currentController.changeScene(Scenes.PRINCIPAL,null);
     }
 
     public void backClick() throws IOException {
         SelectedSubject.removeSubject();
-        App.currentController.changeScene(Scenes.STUDENTFIRST,null);
+        App.currentController.changeScene(Scenes.TEACHERFIRST,null);
     }
 
     public void enteringBackImg() {

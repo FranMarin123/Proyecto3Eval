@@ -29,6 +29,11 @@ public class SubjectDAO implements DAO<Subject, String, String> {
     private final static String DELETEALLSTUDENTS = "DELETE FROM studentsubject WHERE id_subject=?";
     private final static String DELETESTUSUB = "DELETE FROM studentsubject WHERE id_subject=? AND id_student=?";
 
+    /**
+     * This method insert or update a activity in database
+     * @param objectToSave activity to save
+     * @return activity saved
+     */
     @Override
     public Subject save(Subject objectToSave) {
         Subject result=null;
@@ -67,6 +72,12 @@ public class SubjectDAO implements DAO<Subject, String, String> {
         return result;
     }
 
+    /**
+     * This method save a student in a subject
+     * @param student Student to add
+     * @param subject subject to add student
+     * @return True if all was correct, false if not
+     */
     public boolean saveStudentSubject(Student student,Subject subject){
         boolean result=false;
         if (student!=null && subject!=null && student.getId()>0 && subject.getId()>0 && !proveStudentSubject(student.getId(), subject.getId())){
@@ -83,6 +94,12 @@ public class SubjectDAO implements DAO<Subject, String, String> {
         return result;
     }
 
+    /**
+     * This method prove if student is in this subject
+     * @param idStudent id of the student
+     * @param idSubject id of the subject
+     * @return True if is in this subject, false if not
+     */
     public boolean proveStudentSubject(int idStudent, int idSubject){
         boolean result=false;
         if (idStudent>0 && idSubject>0) {
@@ -102,6 +119,12 @@ public class SubjectDAO implements DAO<Subject, String, String> {
         return result;
     }
 
+    /**
+     * Remove a student from subject
+     * @param student student to remove
+     * @param subject subject to remove
+     * @return true if student removed correctly, false if not
+     */
     public boolean removeStudentFromSubject(Student student,Subject subject){
         boolean result = false;
         if (student!=null && subject!=null && student.getId()>0 && subject.getId()>0 && proveStudentSubject(student.getId(), subject.getId())) {
@@ -117,6 +140,11 @@ public class SubjectDAO implements DAO<Subject, String, String> {
         return result;
     }
 
+    /**
+     * This method delete a Subject from database
+     * @param objectToDelete Subject to delete
+     * @return Subject deleted
+     */
     @Override
     public Subject delete(Subject objectToDelete) {
         Subject result = null;
@@ -138,6 +166,12 @@ public class SubjectDAO implements DAO<Subject, String, String> {
         return result;
     }
 
+    /**
+     * This method find a Subject in database
+     * @param key Information to find Subject
+     * @param field Field to browse with this information
+     * @return Subject find with this information
+     */
     @Override
     public Subject findByX(String key, String field) {
         Subject result = new SubjectLazy();
@@ -164,6 +198,11 @@ public class SubjectDAO implements DAO<Subject, String, String> {
         return result;
     }
 
+    /**
+     * This method find all subject of a teacher
+     * @param teacher Teacher to find all subjects
+     * @return Return a list of subjects
+     */
     public Set<Subject> findByTeacher(Teacher teacher) {
         Set<Subject> result = new HashSet<Subject>();
         if (teacher!=null && teacher.getId()>0) {
@@ -185,6 +224,11 @@ public class SubjectDAO implements DAO<Subject, String, String> {
         return result;
     }
 
+    /**
+     * Find all subject of a student
+     * @param student Student to find all subjects
+     * @return Return a list of all subjects
+     */
     public Set<Subject> findByStudent(Student student) {
         Set<Subject> result = new HashSet<Subject>();
         if (student!=null && student.getId()>0) {

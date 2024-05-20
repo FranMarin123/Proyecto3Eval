@@ -1,13 +1,14 @@
-package com.github.FranMarin123.view;
+package com.github.FranMarin123.controller;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.github.FranMarin123.App;
+import com.github.FranMarin123.controller.Controller;
+import com.github.FranMarin123.view.Scenes;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 

@@ -1,10 +1,11 @@
-package com.github.FranMarin123.view;
+package com.github.FranMarin123.controller;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.github.FranMarin123.App;
+import com.github.FranMarin123.controller.Controller;
 import com.github.FranMarin123.model.dao.StudentDAO;
 import com.github.FranMarin123.model.dao.TeacherDAO;
 import com.github.FranMarin123.model.entity.Student;
@@ -15,6 +16,7 @@ import com.github.FranMarin123.model.singleton.StudentSession;
 import com.github.FranMarin123.model.singleton.TeacherSession;
 import com.github.FranMarin123.utils.JavaFXUtils;
 import com.github.FranMarin123.utils.Serializator;
+import com.github.FranMarin123.view.Scenes;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -44,6 +46,11 @@ public class LoginController extends Controller implements Initializable {
     @FXML
     private ImageView back;
 
+    /**
+     * This method get information from a file to login automatically
+     * @param input
+     * @throws IOException
+     */
     @Override
     public void onOpen(Object input) throws IOException {
         User userSigned=(User) Serializator.deserializeObject("userSigned");
@@ -69,6 +76,10 @@ public class LoginController extends Controller implements Initializable {
 
     }
 
+    /**
+     * This method prove that dni and password are correct to login in
+     * @return
+     */
     public boolean proveLogin(){
         boolean result=false;
         User userToProve=new User("",dni.getText(),"",password.getText(),"");
@@ -97,6 +108,9 @@ public class LoginController extends Controller implements Initializable {
         return result;
     }
 
+    /**
+     * This method generate a file with information about a Teacher or Student to stay logged next time
+     */
     public void generateCookie(){
         if (stayLogged.isSelected() && TeacherSession.getInstance()!=null){
             Serializator.serializeObject(TeacherSession.getInstance().getCurrentTeacher(),"userSigned");
@@ -105,6 +119,10 @@ public class LoginController extends Controller implements Initializable {
         }
     }
 
+    /**
+     * This method makes that a user can login
+     * @throws IOException
+     */
     public void loginClick() throws IOException {
         if (proveLogin()){
             if (TeacherSession.getInstance()!=null) {

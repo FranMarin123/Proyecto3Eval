@@ -20,6 +20,11 @@ public class StudentDAO implements DAO<Student, String, UserField> {
     private final static String DELETE = "DELETE FROM student WHERE dni=?";
     private final static String DELETESUBJECTSFORSTUDENT = "DELETE FROM STUDENTSUBJECT WHERE id_student=?";
 
+    /**
+     * This method insert or update a Student in database
+     * @param objectToSave Student to save
+     * @return Student saved
+     */
     @Override
     public Student save(Student objectToSave) {
         Student result;
@@ -90,6 +95,11 @@ public class StudentDAO implements DAO<Student, String, UserField> {
         return result;
     }
 
+    /**
+     * This method delete a Student from database
+     * @param objectToDelete Student to delete
+     * @return Student deleted
+     */
     @Override
     public Student delete(Student objectToDelete) {
         Student result = null;
@@ -107,6 +117,11 @@ public class StudentDAO implements DAO<Student, String, UserField> {
         return result;
     }
 
+    /**
+     * This method delete subjects of this student
+     * @param studentToDelete student to delete subjects
+     * @return
+     */
     public boolean deleteSubjectStudent(Student studentToDelete) {
         boolean result = false;
         if (studentToDelete != null && studentToDelete.getId() > 0) {
@@ -121,6 +136,12 @@ public class StudentDAO implements DAO<Student, String, UserField> {
         return result;
     }
 
+    /**
+     * This method find a Student in database
+     * @param key Information to find Student
+     * @param field Field to browse with this information
+     * @return Student find with this information
+     */
     @Override
     public Student findByX(String key, UserField field) {
         Student result = null;
@@ -149,6 +170,11 @@ public class StudentDAO implements DAO<Student, String, UserField> {
         return result;
     }
 
+    /**
+     * This method find all Student in a subject in database
+     * @param subject Subject to find students
+     * @return A list of students
+     */
     public HashMap<String, Student> findBySubject(Subject subject) {
         HashMap<String, Student> result = new HashMap<>();
         if (subject != null && subject.getId() > 0) {
@@ -174,6 +200,11 @@ public class StudentDAO implements DAO<Student, String, UserField> {
         return result;
     }
 
+    /**
+     * This method find a student with this id
+     * @param key id to find a user
+     * @return return student with this id
+     */
     @Override
     public Student findById(int key) {
         Student result = null;

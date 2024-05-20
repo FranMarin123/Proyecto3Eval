@@ -1,19 +1,14 @@
 package com.github.FranMarin123;
 
-import com.github.FranMarin123.view.AppController;
+import com.github.FranMarin123.controller.AppController;
 import com.github.FranMarin123.view.Scenes;
 import com.github.FranMarin123.view.View;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.io.IOException;
-
-import static com.github.FranMarin123.view.AppController.loadFXML;
 
 /**
  * JavaFX App

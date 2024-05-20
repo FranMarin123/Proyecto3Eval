@@ -20,6 +20,11 @@ public class TeacherDAO implements DAO<Teacher, String, UserField>{
     private final static String FINDBYID = "SELECT t.id,t.dni,t.name,t.mail,t.pass,t.image FROM teacher AS t WHERE t.id=?";
     private final static String DELETE = "DELETE FROM teacher WHERE dni=?";
 
+    /**
+     * This method insert or update a Teacher in database
+     * @param objectToSave Teacher to save
+     * @return Teacher saved
+     */
     @Override
     public Teacher save(Teacher objectToSave) {
         Teacher result;
@@ -90,6 +95,11 @@ public class TeacherDAO implements DAO<Teacher, String, UserField>{
         return result;
     }
 
+    /**
+     * This method delete a Teacher from database
+     * @param objectToDelete Teacher to delete
+     * @return Teacher deleted
+     */
     @Override
     public Teacher delete(Teacher objectToDelete) {
         Teacher result = null;
@@ -104,6 +114,12 @@ public class TeacherDAO implements DAO<Teacher, String, UserField>{
         return result;
     }
 
+    /**
+     * This method find a Teacher in database
+     * @param key Information to find Teacher
+     * @param field Field to browse with this information
+     * @return Teacher find with this information
+     */
     @Override
     public Teacher findByX(String key, UserField field) {
         Teacher result = null;
@@ -131,6 +147,11 @@ public class TeacherDAO implements DAO<Teacher, String, UserField>{
         return result;
     }
 
+    /**
+     * Find a Teacher by id
+     * @param key Id of the Teacher
+     * @return Teacher found with this id
+     */
     @Override
     public Teacher findById(int key) {
         Teacher result = null;

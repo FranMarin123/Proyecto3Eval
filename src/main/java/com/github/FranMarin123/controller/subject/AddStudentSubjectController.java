@@ -1,4 +1,4 @@
-package com.github.FranMarin123.view;
+package com.github.FranMarin123.controller.subject;
 
 import com.github.FranMarin123.App;
 import com.github.FranMarin123.model.dao.StudentDAO;
@@ -6,6 +6,8 @@ import com.github.FranMarin123.model.dao.SubjectDAO;
 import com.github.FranMarin123.model.enums.UserField;
 import com.github.FranMarin123.model.singleton.SelectedSubject;
 import com.github.FranMarin123.utils.JavaFXUtils;
+import com.github.FranMarin123.controller.Controller;
+import com.github.FranMarin123.view.Scenes;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
@@ -38,6 +40,10 @@ public class AddStudentSubjectController extends Controller implements Initializ
 
     }
 
+    /**
+     * This method save in database a student in a subject
+     * @throws IOException
+     */
     public void confirmClick() throws IOException {
         if (dniStudent!=null) {
             if (SelectedSubject.getInstance().getCurrentSubject().addStudent(StudentDAO.build().findByX(dniStudent.getText(), UserField.DNI))) {

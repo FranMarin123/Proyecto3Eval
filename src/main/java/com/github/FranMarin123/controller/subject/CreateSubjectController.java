@@ -1,10 +1,12 @@
-package com.github.FranMarin123.view;
+package com.github.FranMarin123.controller.subject;
 
 import com.github.FranMarin123.App;
+import com.github.FranMarin123.controller.Controller;
 import com.github.FranMarin123.model.dao.SubjectDAO;
 import com.github.FranMarin123.model.entity.Subject;
 import com.github.FranMarin123.model.singleton.TeacherSession;
 import com.github.FranMarin123.utils.JavaFXUtils;
+import com.github.FranMarin123.view.Scenes;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
@@ -26,7 +28,11 @@ public class CreateSubjectController extends Controller implements Initializable
     @FXML
     private ImageView back;
 
-
+    /**
+     * This method makes hours textfield only can get numbers
+     * @param input
+     * @throws IOException
+     */
     @Override
     public void onOpen(Object input) throws IOException {
         hours.setTextFormatter(new TextFormatter<>(new NumberStringConverter()));
@@ -42,6 +48,10 @@ public class CreateSubjectController extends Controller implements Initializable
 
     }
 
+    /**
+     * This method create a subject with information obtained with textfields
+     * @return
+     */
     public boolean registerSubject(){
         boolean result=false;
         if (name.getText()!=null && !name.getText().isEmpty() && Integer.valueOf(hours.getText())>0

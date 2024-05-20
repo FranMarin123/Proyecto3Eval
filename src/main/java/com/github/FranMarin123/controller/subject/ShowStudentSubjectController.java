@@ -1,10 +1,11 @@
-package com.github.FranMarin123.view;
+package com.github.FranMarin123.controller.subject;
 
 import com.github.FranMarin123.App;
+import com.github.FranMarin123.controller.Controller;
 import com.github.FranMarin123.model.singleton.StudentSession;
+import com.github.FranMarin123.view.Scenes;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
@@ -29,6 +30,11 @@ public class ShowStudentSubjectController extends Controller implements Initiali
     @FXML
     private ImageView back;
 
+    /**
+     * This method prints in a Texts information about a Student
+     * @param input
+     * @throws IOException
+     */
     @Override
     public void onOpen(Object input) throws IOException {
         information.setText("STUDENT INFORMATION:");
@@ -47,6 +53,10 @@ public class ShowStudentSubjectController extends Controller implements Initiali
 
     }
 
+    /**
+     * This method change the scene to SELECTEDSUBJECT
+     * @throws IOException
+     */
     public void backClick() throws IOException {
         App.currentController.changeScene(Scenes.SELECTEDSUBJECT, null);
     }

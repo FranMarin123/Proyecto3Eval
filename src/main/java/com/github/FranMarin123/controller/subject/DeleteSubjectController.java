@@ -1,11 +1,12 @@
-package com.github.FranMarin123.view;
+package com.github.FranMarin123.controller.subject;
 
 import com.github.FranMarin123.App;
+import com.github.FranMarin123.controller.Controller;
 import com.github.FranMarin123.model.dao.SubjectDAO;
 import com.github.FranMarin123.model.entity.Subject;
-import com.github.FranMarin123.model.singleton.SelectedSubject;
 import com.github.FranMarin123.model.singleton.TeacherSession;
 import com.github.FranMarin123.utils.JavaFXUtils;
+import com.github.FranMarin123.view.Scenes;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
@@ -40,10 +41,18 @@ public class DeleteSubjectController extends Controller implements Initializable
 
     }
 
+    /**
+     * This method change the scene to SELECTEDSUBJECT
+     * @throws IOException
+     */
     public void backClick() throws IOException {
         App.currentController.changeScene(Scenes.TEACHERFIRST,null);
     }
 
+    /**
+     * This method delete a subject selected
+     * @throws IOException
+     */
     public void deleteSubjectButton() throws IOException {
         if (choiceBox!=null && choiceBox.getValue()!=null){
             SubjectDAO.build().delete(SubjectDAO.build().findByX(choiceBox.getValue(),"name"));
@@ -55,11 +64,17 @@ public class DeleteSubjectController extends Controller implements Initializable
         }
     }
 
+    /**
+     * This method resize image back
+     */
     public void enteringBackImg() {
         back.setFitWidth(45);
         back.setFitHeight(25);
     }
 
+    /**
+     * This method resize image back to original size
+     */
     public void exitingBackImg() {
         back.setFitHeight(52);
         back.setFitWidth(32);

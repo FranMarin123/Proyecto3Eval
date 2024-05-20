@@ -1,12 +1,11 @@
-package com.github.FranMarin123.view;
+package com.github.FranMarin123.controller.subject;
 
 import com.github.FranMarin123.App;
-import com.github.FranMarin123.model.dao.StudentDAO;
-import com.github.FranMarin123.model.dao.SubjectDAO;
-import com.github.FranMarin123.model.enums.UserField;
+import com.github.FranMarin123.controller.Controller;
 import com.github.FranMarin123.model.singleton.SelectedSubject;
 import com.github.FranMarin123.model.singleton.StudentSession;
 import com.github.FranMarin123.utils.JavaFXUtils;
+import com.github.FranMarin123.view.Scenes;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
@@ -39,6 +38,10 @@ public class StudentBrowserController extends Controller implements Initializabl
 
     }
 
+    /**
+     * This method change the scene to SELECTEDSUBJECT
+     * @throws IOException
+     */
     public void backClick() throws IOException {
         App.currentController.changeScene(Scenes.SELECTEDSUBJECT,null);
     }
@@ -53,6 +56,10 @@ public class StudentBrowserController extends Controller implements Initializabl
         back.setFitWidth(32);
     }
 
+    /**
+     * This method gets a dni with a textfield and he finds a student with this dni in database
+     * @throws IOException
+     */
     public void confirmClick() throws IOException {
         if (dniStudent!=null) {
             if (SelectedSubject.getInstance().getCurrentSubject().getStudents().containsKey(dniStudent.getText())) {

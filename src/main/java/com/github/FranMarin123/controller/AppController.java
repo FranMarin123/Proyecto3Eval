@@ -1,19 +1,12 @@
-package com.github.FranMarin123.view;
+package com.github.FranMarin123.controller;
 
 import com.github.FranMarin123.App;
-import com.github.FranMarin123.model.entity.Student;
-import com.github.FranMarin123.model.entity.Teacher;
-import com.github.FranMarin123.model.entity.User;
-import com.github.FranMarin123.model.singleton.StudentSession;
-import com.github.FranMarin123.model.singleton.TeacherSession;
-import com.github.FranMarin123.utils.Serializator;
+import com.github.FranMarin123.view.Scenes;
+import com.github.FranMarin123.view.View;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
@@ -31,6 +24,12 @@ public class AppController extends Controller implements Initializable {
         changeScene(Scenes.PRINCIPAL, null);
     }
 
+    /**
+     * This method can change scene
+     * @param scene scene to change
+     * @param data
+     * @throws IOException
+     */
     public void changeScene(Scenes scene, Object data) throws IOException {
         View view = loadFXML(scene);
         borderPane.setCenter(view.scene);
@@ -38,6 +37,12 @@ public class AppController extends Controller implements Initializable {
         this.centerController.onOpen(data);
     }
 
+    /**
+     * This method load fxml file from scene
+     * @param scenes Scene to read
+     * @return View object with scene information
+     * @throws IOException
+     */
     public static View loadFXML(Scenes scenes) throws IOException {
         String url = scenes.getPath();
         FXMLLoader loader = new FXMLLoader(App.class.getResource(url));

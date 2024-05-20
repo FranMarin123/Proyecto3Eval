@@ -1,4 +1,4 @@
-package com.github.FranMarin123.view;
+package com.github.FranMarin123.controller;
 
 import com.github.FranMarin123.App;
 

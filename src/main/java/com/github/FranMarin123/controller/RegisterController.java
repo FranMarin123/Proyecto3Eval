@@ -1,6 +1,7 @@
-package com.github.FranMarin123.view;
+package com.github.FranMarin123.controller;
 
 import com.github.FranMarin123.App;
+import com.github.FranMarin123.controller.Controller;
 import com.github.FranMarin123.model.dao.StudentDAO;
 import com.github.FranMarin123.model.dao.TeacherDAO;
 import com.github.FranMarin123.model.entity.Student;
@@ -9,6 +10,7 @@ import com.github.FranMarin123.model.enums.UserField;
 import com.github.FranMarin123.model.singleton.StudentSession;
 import com.github.FranMarin123.model.singleton.TeacherSession;
 import com.github.FranMarin123.utils.JavaFXUtils;
+import com.github.FranMarin123.view.Scenes;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -57,6 +59,10 @@ public class RegisterController extends Controller implements Initializable {
 
     }
 
+    /**
+     * This method detect if information to create a new teacher or student are correct and creates it
+     * @throws IOException
+     */
     public void registerClick() throws IOException {
         if (choiceBox.getValue() == null) {
             JavaFXUtils.showErrorAlert("ERROR CREATING USER", "Type of user not selected");
