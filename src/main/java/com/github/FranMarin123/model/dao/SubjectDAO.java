@@ -127,7 +127,8 @@ public class SubjectDAO implements DAO<Subject, String, String> {
      */
     public boolean removeStudentFromSubject(Student student,Subject subject){
         boolean result = false;
-        if (student!=null && subject!=null && student.getId()>0 && subject.getId()>0 && proveStudentSubject(student.getId(), subject.getId())) {
+        if (student!=null && subject!=null && student.getId()>0 && subject.getId()>0
+                && proveStudentSubject(student.getId(), subject.getId())) {
             try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(DELETESTUSUB)) {
                 pst.setInt(1, subject.getId());
                 pst.setInt(2, student.getId());

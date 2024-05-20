@@ -60,7 +60,6 @@ public class RemoveStudentSubjectController extends Controller implements Initia
      * @throws IOException
      */
     public void backClick() throws IOException {
-        SelectedSubject.removeSubject();
         App.currentController.changeScene(Scenes.SELECTEDSUBJECT,null);
     }
 
